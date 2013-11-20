@@ -1,31 +1,34 @@
  <?php 
 
 
-
-require_once "json/JSON.php";
+require_once "../json/JSON.php";
 $json = new Services_JSON();
 
 $url1 = $_GET["url1"];
 $url2 =  $_GET["url2"];
+$type=  $_GET["type"];
 
-$descriptorspec = array(
-    0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
-   1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
-    2 => array("file", "/data/home/scape/public_html/test/error-output.txt", "a")// 2 is STDERR for process
- );
+$ok = 1;
 
-$cmd = "DISPLAY=:0 java -Djava.awt.headless=true -jar ./demo.jar ".$url1." ".$url2." &";
 
-$p=proc_open ($cmd, $descriptorspec, $pipes);
+if ($type ==0) {
+    $cmd = "./scape-xcorrsound-master/build/apps/waveform-compare".$url1." ".$url2." 2>&1";
+} elseif ($type ==1) {
+    $cmd = "./scape-xcorrsound-master/build/apps/sound-match".$url1." ".$url2." 2>&1";
+} elseif ($type ==2) {
+    $cmd = "./scape-xcorrsound-master/build/apps/overlap-analysis".$url1." ".$url2." 2>&1";
+}else
+{
+	echo "type error";
+	$ok = 0;
+}
 
-$out = stream_get_contents($pipes[1]) ;
-$out2 = $json->encode($out);
-$parts = explode('\n', $out2);
-
-$result = $json->encode($parts[sizeof($parts)-1]);
-print($result);
-
-proc_close($p);
+if($ok ==1)
+{
+	exec($cmd, $output);
+	$result = $json->encode($output);
+	print($result);
+}
 
 
 ?>
