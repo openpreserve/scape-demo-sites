@@ -2,12 +2,13 @@
 <head>
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Demo Pagelyzer - Image based</title>
+  <title>Demonstration of waveform compare — an xcorrsound tool</title>
   <link rel="stylesheet" href="css/style.css">
 <script src="ajax.js"></script>
 
 <script>
 
+if ($_FILES[
 /**Ajax Request (Submits the form below through AJAX
  *               and then calls the ajax_response function)
  */
@@ -83,7 +84,8 @@ var score="";
         <img src="http://www.alliancepermanentaccess.org/wp-content/uploads/2012/09/SCAPE_Logo_Large_with_Tagline_png-300x114.jpg"/>
         </td>
          <td width="50%">
-        	 <h1 class="sign-up-title">Demo of Pagelyzer</h1>
+        	 <h1 class="sign-up-title">Demonstration of waveform compare —
+                 an xcorrsound tool</h1>
         </td>
 		
     </tr>
@@ -121,10 +123,10 @@ var score="";
 	<table width="100%">
     <tr>
         <td>
-        	 <input type="text" id="url1" class="sign-up-input" placeholder="First Url" onkeypress="resetResults()">
+        	 <input type="text" id="url1" class="sign-up-input" placeholder="First WAV file" onkeypress="resetResults()">
         </td>
         <td>
-        	 <input type="text"  id="url2" class="sign-up-input" placeholder="Second Url" onkeypress="resetResults()">
+        	 <input type="text"  id="url2" class="sign-up-input" placeholder="Second WAV file" onkeypress="resetResults()">
         </td>
 		
     </tr>
@@ -161,18 +163,25 @@ var score="";
 	</table>
 
 </form>
+
+<form action="upload_file.php" method="post"
+    enctype="multipart/form-data">
+    <label for="file1">First WAV file</label>
+    <input type="file" name="file1" id="file1"><br>
+
+    <label for="file2">Second WAV file</label>
+    <input type="file" name="file2" id="file2"><br>
+    <input type="submit" name="submit" value="Submit">
+</form>
 		
 	</div>	
 		
 <div id="links" class="sign-up">
 	 <h1 class="sign-up-title">Related Links</h1>
 	 <ul class="list">
-  <li> Pagelyzer at Wiki <a href="http://wiki.opf-labs.org/display/TR/Pagelyzer">here</a> </li>
-  <li> Pagelyzer at Github <a href="https://github.com/openplanets/pagelyzer"> here </a></li>
-  <li> Pagelyzer blog post: coming soon</li>
-  <li> MarcAlizer (supervised framework in Pagelyzer) at Github <a href="https://github.com/lechervy/MarcAlizer/"> here </a></li>
-  <li> Pagelyzer scability test results (image based) by IMF  <a href="http://www.openplanetsfoundation.org/blogs/2013-07-26-browser-screenshot-comparison-tool"> here </a></li>
-  <li> For any question or further information please contact to zeynep.pehlivan@lip6.fr or marc.law@lip6.fr or andres.sanoja@lip6.fr</a></li>
+  <li> <a href="https://github.com/openplanets/xcorrsound">Xcorrsound at Github</a></li>
+  <li> Xcorrsound blog post: coming soon</li>
+  <li> For any question or further information please contact TODO: WHO</a></li>
 </ul> 
 </div>
 	
