@@ -12,11 +12,11 @@ $ok = 1;
 
 
 if ($type ==0) {
-    $cmd = "./scape-xcorrsound-master/build/apps/waveform-compare".$url1." ".$url2." 2>&1";
+    $cmd = "./scape-xcorrsound-master/build/apps/waveform-compare ".$url1." ".$url2." 2>&1";
 } elseif ($type ==1) {
-    $cmd = "./scape-xcorrsound-master/build/apps/sound-match".$url1." ".$url2." 2>&1";
+    $cmd = "./scape-xcorrsound-master/build/apps/sound-match ".$url1." ".$url2." 2>&1";
 } elseif ($type ==2) {
-    $cmd = "./scape-xcorrsound-master/build/apps/overlap-analysis".$url1." ".$url2." 2>&1";
+    $cmd = "./scape-xcorrsound-master/build/apps/overlap-analysis ".$url1." ".$url2." 2>&1";
 }else
 {
 	echo "type error";
