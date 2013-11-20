@@ -25,7 +25,7 @@ if ($type ==0) {
 
 if($ok ==1)
 {	
-	echo exec($cmd, $output);
+	exec($cmd, $output);
 	$result = $json->encode($output);
 	print($result);
 }
