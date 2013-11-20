@@ -24,11 +24,12 @@ if ($type ==0) {
 }
 
 if($ok ==1)
-{
-	exec($cmd, $output);
+{	
+	echo exec($cmd, $output);
 	$result = $json->encode($output);
 	print($result);
 }
+
 
 
 ?>
