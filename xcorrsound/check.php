@@ -1,7 +1,7 @@
  <?php 
 
 
-require_once "../json/JSON.php";
+require_once "../StyleJS/json/JSON.php";
 $json = new Services_JSON();
 
 $url1 = $_GET["url1"];
