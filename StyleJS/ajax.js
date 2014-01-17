@@ -91,6 +91,51 @@ function http(verb,url,rm,qry) {
 	}
 }
 
+//perform the XMLHttpRequest() and upload binaries;
+function http_uploadBinaries(verb, url, rm, formData) {
+	// reference our arguments
+	var callback = rm;
+	var calledOnce = false; // this is to prevent a bug in onreadystatechange... "state 1" gets called twice.
+
+	try {// this should work for most modern browsers excluding: IE Mac
+		var req = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+		req.onreadystatechange = function() {
+			switch (req.readyState) {
+			case 1:
+				if (!calledOnce) {
+					jsmx.onWait();
+					calledOnce = true;
+				}
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				jsmx.onWaitEnd();
+				if (req.status == 200) {// only if "OK"
+					try {
+						rObj = parseResponse(req);
+						success = true;
+					} catch (e) {
+						jsmx.onError('Parsing Error: The value returned could not be evaluated.');
+						success = false;
+					}
+					if (success)
+						callback(rObj);
+				} else {
+					jsmx.onError("There was a problem retrieving the data:\n" + req.statusText);
+				}
+				break;
+			}
+		};
+		req.open(verb, noCache(url), jsmx.async);
+		req.send(formData);
+	} catch (e) {// a browser not equiped to handle XMLHttp
+		// jsmx.onError("There was a problem retrieving the data:");
+	}
+}
+
 /*--- BEGIN: RESPONSE PARSING FUNCTIONS ---*/
 	function parseResponse(rO){
 		//FIRST TRY IT AS XML
