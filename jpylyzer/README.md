@@ -1,2 +1,2 @@
-# Demonstration site for jpylyzer
+# Demonstration site for Jpylyzer
 

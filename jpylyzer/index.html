@@ -10,7 +10,7 @@
 <script>
 
     function resetForm() {
-        document.getElementById('compare_form').reset();
+        document.getElementById('analyze_form').reset();
         resetResults();
     }
 
@@ -56,21 +56,21 @@
           src="http://www.alliancepermanentaccess.org/wp-content/uploads/2012/09/SCAPE_Logo_Large_with_Tagline_png-300x114.jpg" />
         </td>
         <td width="50%">
-          <h1 class="sign-up-title">Demonstration of waveform compare — an xcorrsound tool</h1>
+          <h1 class="sign-up-title">Demonstration of Jpylyzer — a JP2 validator and properties extractor</h1>
         </td>
       </tr>
     </table>
 
     <br /> <br /> <br /> <br />
 
-    <form name="compare_form" id="compare_form" action="compare_files.php" method="post" enctype="multipart/form-data">
-      <label for="inputJp2">WAV #1:</label>
+    <form name="analyze_form" id="analyze_form" action="check.php" method="post" enctype="multipart/form-data">
+      <label for="inputJp2">JP2 #1:</label>
       <input type="file" name="inputJp2" id="inputJp2">
       <br>
       <br />
 
       <div class="buttonHolder">
-        <input type="button" class="sign-up-button" onclick="ajax_request()" value="Let's Compare">
+        <input type="button" class="sign-up-button" onclick="ajax_request()" value="Let's Analyze">
         <input type="button" class="reset-button" onclick="resetForm()" value="Reset">
       </div>
 

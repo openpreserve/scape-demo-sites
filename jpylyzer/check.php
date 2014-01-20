@@ -7,9 +7,9 @@
 	require_once "StyleJS/json/JSON.php";
 	$json = new Services_JSON();
 	
-	//expecting waveform-compare is set up
+	//expecting Jpylyzer is set up and configured
  	$output = array();
-  	$command = "jp2-validate " . escapeshellarg($_FILES['inputJp2']["tmp_name"]);
+  	$command = "jpylyzer " . escapeshellarg($_FILES['inputJp2']);
    	exec($command, $output);
   			 
  	$formatted = "";
