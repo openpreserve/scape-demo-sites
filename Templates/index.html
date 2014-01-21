@@ -77,18 +77,20 @@ var score="";
 </head>
 <body>
 	
-	<div id="scape" class="sign-up">
-	<table width="100%">
-    <tr>
-        <td width="50%">
-        <img src="http://www.alliancepermanentaccess.org/wp-content/uploads/2012/09/SCAPE_Logo_Large_with_Tagline_png-300x114.jpg"/>
-        </td>
-         <td width="50%">
-        	 <h1 class="sign-up-title">Demo of Pagelyzer</h1>
-        </td>
-		
-    </tr>
-	</table>
+<div id="scape" class="sign-up">
+
+
+<table width="100%">
+	<tr>
+		<td width="50%">
+			 <img src="http://www.alliancepermanentaccess.org/wp-content/uploads/2012/09/SCAPE_Logo_Large_with_Tagline_png-300x114.jpg"/>
+		</td>
+ 		<td width="50%">
+	 		<h1 class="sign-up-title">Demo of Pagelyzer</h1>
+		</td>
+	
+	</tr>
+</table>
 
 	
 	
@@ -99,18 +101,16 @@ var score="";
 	
 <div class="wrapper">
 	<ul>
-  <li  style="list-style:none;">
-    <input type="radio" name="custom_type" value="public" class="styled" checked=true  disabled=true/>
-    Image Based
-    <input type="radio" name="custom_type" 
-    value="private" id="custom_venuetype_private" class="styled" disabled=true/>
-    Content Based
-	<input type="radio" name="custom_type" 
-    value="private" id="custom_venuetype_private" class="styled" disabled=true/>
-    Hybrid
-  </li>
-</ul>
-	</div>
+  	<li  style="list-style:none;">
+    		<input type="radio" name="custom_type" value="public" class="styled" checked=true  disabled=true/>
+    		Image Based
+    		<input type="radio" name="custom_type" value="private" id="custom_venuetype_private" class="styled" disabled=true/>
+   		 Content Based
+		<input type="radio" name="custom_type"  value="private" id="custom_venuetype_private" class="styled" disabled=true/>
+    		Hybrid
+  	</li>
+	</ul>
+</div>
 
 	
 <br/>
@@ -120,26 +120,23 @@ var score="";
 	
   <form name="form1" id="form1" >
 	<table width="100%">
-    <tr>
-        <td>
-        	 <input type="text" id="url1" class="sign-up-input" placeholder="First Url" onkeypress="resetResults()">
-        </td>
-        <td>
-        	 <input type="text"  id="url2" class="sign-up-input" placeholder="Second Url" onkeypress="resetResults()">
-        </td>
+    		<tr>
+        	<td>
+        	 	<input type="text" id="url1" class="sign-up-input" placeholder="First Url" onkeypress="resetResults()">
+        	</td>
+       		<td>
+        	 	<input type="text"  id="url2" class="sign-up-input" placeholder="Second Url" onkeypress="resetResults()">
+       		 </td>
 		
-    </tr>
+    		</tr>
 	</table>
 	
 	
-		<div class="buttonHolder">
-		 <input type="button"  class="sign-up-button"  onclick="ajax_request()" value="Let's Compare">
+	<div class="buttonHolder">
+		<input type="button"  class="sign-up-button"  onclick="ajax_request()" value="Let's Compare">
   
 	  	<input type="button"  class="reset-button"  onclick="resetForm()" value="Reset"><br><br>
-		
-		
-	
-		</div>	
+	</div>	
 
  
   
@@ -147,34 +144,33 @@ var score="";
 * Remember that this demo aims to test the correctness of the tool, not the performance.
   <hr>
 	<table width="100%">
-    <tr>
-        <td width="50%">
-        	 <div id="progressBar">
-        	 	
-        	 </div>
-        </td>
-         <td width="50%">
-        	 <div id="content"  class="result-title">
-				</div>
-        </td>
-		
-    </tr>
+    	<tr>
+		<td width="50%">
+			 <div id="progressBar">
+			 	
+			 </div>
+		</td>
+		 <td width="50%">
+			 <div id="content"  class="result-title">
+					</div>
+		</td>
+   	</tr>
 	</table>
 
 </form>
 		
-	</div>	
+</div>	
 		
 <div id="links" class="sign-up">
 	 <h1 class="sign-up-title">Related Links</h1>
 	 <ul class="list">
-  <li> Pagelyzer at Wiki <a href="http://wiki.opf-labs.org/display/TR/Pagelyzer">here</a> </li>
-  <li> Pagelyzer at Github <a href="https://github.com/openplanets/pagelyzer"> here </a></li>
-  <li> Pagelyzer blog post: coming soon</li>
-  <li> MarcAlizer (supervised framework in Pagelyzer) at Github <a href="https://github.com/lechervy/MarcAlizer/"> here </a></li>
-  <li> Pagelyzer scability test results (image based) by IMF  <a href="http://www.openplanetsfoundation.org/blogs/2013-07-26-browser-screenshot-comparison-tool"> here </a></li>
-  <li> For any question or further information please contact to zeynep.pehlivan@lip6.fr or marc.law@lip6.fr or andres.sanoja@lip6.fr</a></li>
-</ul> 
+		  <li> Pagelyzer at Wiki <a href="http://wiki.opf-labs.org/display/TR/Pagelyzer">here</a> </li>
+		  <li> Pagelyzer at Github <a href="https://github.com/openplanets/pagelyzer"> here </a></li>
+		  <li> Pagelyzer blog post: coming soon</li>
+		  <li> MarcAlizer (supervised framework in Pagelyzer) at Github <a href="https://github.com/lechervy/MarcAlizer/"> here </a></li>
+		  <li> Pagelyzer scability test results (image based) by IMF  <a href="http://www.openplanetsfoundation.org/blogs/2013-07-26-browser-screenshot-comparison-tool"> here </a></li>
+		  <li> For any question or further information please contact to zeynep.pehlivan@lip6.fr or marc.law@lip6.fr or andres.sanoja@lip6.fr</a></li>
+	</ul> 
 </div>
 	
 		

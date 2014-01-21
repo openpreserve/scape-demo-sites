@@ -33,13 +33,17 @@ function ajax_request() {
 
 	resetResults();
 
-   document.getElementById("progressBar").className="spinner";
-  var url1 = document.getElementById("url1").value;//by id
-  var url2 = document.getElementById("url2").value;//by id
+	document.getElementById("progressBar").className="spinner";
+	var url1 = document.getElementById("url1").value;//by id
+	var url2 = document.getElementById("url2").value;//by id
+	var type=0;
+	if (document.getElementById('custom_type').checked) {
+	  type = document.getElementById('custom_type').value;
+	}
 
-  var submitTo = 'check.php?url1=' +encodeURIComponent(url1) + "&url2=" + encodeURIComponent(url2);
+	  var submitTo = 'check.php?url1=' +encodeURIComponent(url1) + "&url2=" + encodeURIComponent(url2)+"&type="+type;
 
-  http('POST', submitTo, ajax_response, document.form1);
+	  http('POST', submitTo, ajax_response, document.form1);
 
 }
 
@@ -56,7 +60,7 @@ var score="";
     score+= data[key];
   }
 	score = score.substring(0, score.length - 1);
-	document.getElementById("content").innerHTML = "Score: " + parseFloat(score).toFixed(2);
+	//document.getElementById("content").innerHTML = "Score: " + parseFloat(score).toFixed(2);
 	
 	if(parseFloat(score) > 0)
 	{
@@ -99,18 +103,16 @@ var score="";
 	
 <div class="wrapper">
 	<ul>
-  <li  style="list-style:none;">
-    <input type="radio" name="custom_type" value="public" class="styled" checked=true  disabled=true/>
-    Image Based
-    <input type="radio" name="custom_type" 
-    value="private" id="custom_venuetype_private" class="styled" disabled=true/>
-    Content Based
-	<input type="radio" name="custom_type" 
-    value="private" id="custom_venuetype_private" class="styled" disabled=true/>
-    Hybrid
-  </li>
-</ul>
-	</div>
+	  <li  style="list-style:none;">
+	    <input type="radio" name="custom_type" value="1" class="styled" checked=true />
+	    Image Based
+	    <input type="radio" name="custom_type"  value="2" id="custom_venuetype_private" class="styled" />
+	    Content Based
+	    <input type="radio" name="custom_type"  value="3" id="custom_venuetype_private" class="styled" />
+	    Hybrid
+	  </li>
+	</ul>
+</div>
 
 	
 <br/>

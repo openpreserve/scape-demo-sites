@@ -11,7 +11,11 @@ $url2 =  $_GET["url2"];
 $descriptorspec = array(
     0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
    1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
+<<<<<<< HEAD
     2 => array("pipe", "w")// 2 is STDERR for process
+=======
+    2 => array("pipe","w")// 2 is STDERR for process
+>>>>>>> 026a087326faab35a0ffb6d39881c8628302024a
  );
 
 $cmd = "DISPLAY=:0 java -Djava.awt.headless=true -jar ./demo3.jar ".$url1." ".$url2." &";

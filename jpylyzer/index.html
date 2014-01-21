@@ -2,7 +2,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Demonstration of waveform compare — an xcorrsound tool</title>
+<title>Demonstration of JP2 validation — a jpylyzer tool</title>
 <link rel="stylesheet" href="../StyleJS/css/style.css">
 
 <script src="../StyleJS/ajax.js"></script>
@@ -10,7 +10,7 @@
 <script>
 
     function resetForm() {
-        document.getElementById('compare_form').reset();
+        document.getElementById('analyze_form').reset();
         resetResults();
     }
 
@@ -28,9 +28,8 @@
         document.getElementById("content").innerHTML = "Processing...";
 
         var formData = new FormData();
-        formData.append('inputWaveFile1', document.getElementById('inputWaveFile1').files[0]);
-        formData.append('inputWaveFile2', document.getElementById('inputWaveFile2').files[0]);
-        var submitTo = 'compare_files.php';
+        formData.append('inputJp2', document.getElementById('inputJp2').files[0]);
+        var submitTo = 'check.php';
         http_uploadBinaries('POST', submitTo, ajax_response, formData);
     }
 
@@ -57,27 +56,22 @@
           src="http://www.alliancepermanentaccess.org/wp-content/uploads/2012/09/SCAPE_Logo_Large_with_Tagline_png-300x114.jpg" />
         </td>
         <td width="50%">
-          <h1 class="sign-up-title">Demonstration of waveform compare — an xcorrsound tool</h1>
+          <h1 class="sign-up-title">Demonstration of Jpylyzer — a JP2 validator and properties extractor</h1>
         </td>
       </tr>
     </table>
 
     <br /> <br /> <br /> <br />
 
-    <form name="compare_form" id="compare_form" action="compare_files.php" method="post" enctype="multipart/form-data">
-    
-      <div class="input-button">
-        <label for="inputWaveFile1">Select wave file #1</label><br />
+    <form name="analyze_form" id="analyze_form" action="check.php" method="post" enctype="multipart/form-data">
+	  <div class="input-button">
+		<label for="inputWaveFile1">Select wave file #1</label><br />
         <input type="file" name="inputWaveFile1" id="inputWaveFile1">
-      </div>
-      <div class="input-button">
-        <label for="inputWaveFile2">Select wave file #2</label><br />
-        <input type="file" name="inputWaveFile2" id="inputWaveFile2">
       </div>
       <br />
 
       <div class="buttonHolder">
-        <input type="button" class="sign-up-button" onclick="ajax_request()" value="Let's Compare">
+        <input type="button" class="sign-up-button" onclick="ajax_request()" value="Let's Analyze">
         <input type="button" class="reset-button" onclick="resetForm()" value="Reset">
       </div>
 
@@ -105,9 +99,9 @@
   <div id="links" class="sign-up">
     <h1 class="sign-up-title">Related Links</h1>
     <ul class="list">
-      <li><a href="https://github.com/openplanets/xcorrsound">Xcorrsound at Github</a></li>
-      <li>Xcorrsound blog post: coming soon</li>
-      <li>For any question or further information, please contact Bolette Jurik at statsbiblioteket.dk</li>
+      <li><a href="https://github.com/openplanets/jpylyzer">Jpylyzer at Github</a></li>
+      <li><a href="http://www.openplanetsfoundation.org/blogs/2011-12-14-prototype-jp2-validator-and-properties-extractor">Jpylyzer blog post @ OPF</a></li>
+      <li>For any question or further information, please contact Johan van der Knijff at kb.nl</li>
     </ul>
   </div>
 
