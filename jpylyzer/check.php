@@ -4,7 +4,7 @@
 	// upload_max_filesize = 50M
 	// post_max_size = 192M
 	
-	require_once "StyleJS/json/JSON.php";
+	require_once "../StyleJS/json/JSON.php";
 	$json = new Services_JSON();
 	
 	//expecting Jpylyzer is set up and configured
