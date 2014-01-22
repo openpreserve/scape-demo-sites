@@ -1,5 +1,7 @@
  <?php 
 
+// This is a test page not over yet we have problems related to run selenium etc. 
+
 require_once "../StyleJS/json/JSON.php";
 $json = new Services_JSON();
 
