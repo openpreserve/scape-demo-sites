@@ -3,7 +3,7 @@ Pagelyzer demo
 
 ###Requirements:
 
-The deployment and installation of the browser-shots tool is strongly dependent on different other packages, since it uses "off-the-shelf" components that need to be already available on your system, such as:
+The deployment and installation of demo for pagelyzer dependent on different other packages:
 
     - Selenium 2.29 // jar is provided on github
     - Firefox > 3.2
