@@ -9,7 +9,7 @@
 	
 	//expecting waveform-compare is set up
  	$output = array();
-  	$command = "waveform-compare " . escapeshellarg($_FILES['inputWaveFile1']["tmp_name"]) . " " . escapeshellarg($_FILES['inputWaveFile2']["tmp_name"]);
+    $command = "cd /tmp && waveform-compare " . escapeshellarg($_FILES['inputWaveFile1']['tmp_name']) . " " . escapeshellarg($_FILES['inputWaveFile2']['tmp_name']);
    	exec($command, $output);
   			 
  	$formatted = "";
