@@ -6,6 +6,7 @@ $json = new Services_JSON();
 $url1 = $_GET["url1"];
 $url2 =  $_GET["url2"];
 $type = $_GET["type"];
+$pagelyze="DISPLAY=:98 java -jar  /var/lib/pagelyzer/jPagelyzer.jar -get score -cmode ";
 
 
 $descriptorspec = array(
@@ -16,15 +17,15 @@ $descriptorspec = array(
 
 if($type == 1)
 {
-	$cmd = "DISPLAY=:1 java -jar  jPagelyzer.jar -get score -cmode images -url1 ".$url1." -url2 ".$url2." 2>&1";
+	$cmd = $pagelyze."images -url1 ".$url1." -url2 ".$url2." 2>&1";
 }
 elseif($type == 2)
 {
-	$cmd = "DISPLAY=:1 java -jar  jPagelyzer.jar -get score -cmode structure -url1 ".$url1." -url2 ".$url2." 2>&1";
+	$cmd = $pagelyze."structure -url1 ".$url1." -url2 ".$url2." 2>&1";
 }
 else
 {
-	$cmd = "DISPLAY=:1 java -jar  jPagelyzer.jar -get score -cmode hybrid -url1 ".$url1." -url2 ".$url2." 2>&1";
+	$cmd = $pagelyze."hybrid -url1 ".$url1." -url2 ".$url2." 2>&1";
 }
 
 $p=proc_open ($cmd, $descriptorspec, $pipes);
