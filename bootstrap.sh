@@ -16,17 +16,11 @@
 # Update apt repos
 apt-get update
 
-# Install firefox for pagelyzer 
-apt-get install -y firefox
-# Install xvfb for pagelyzer 
-apt-get install -y xvfb
-#install java  
-apt-get install -y openjdk-7-jre-headless
+# Install apache 2 and PHP 5 for demo site
+apt-get install -y apache2 php5 libapache2-mod-php5
 
-
-# Install apache 2 and PHP 5
-apt-get install -y apache2
-apt-get install -y php5 libapache2-mod-php5
+# Install firefox, xvfb, and Java for pagelyzer 
+apt-get install -y firefox xvfb openjdk-7-jre-headless
 
 # Restart apache and link www root to the vagrant shared dir
 # which is the project home directroy. This allows live edits
@@ -34,14 +28,6 @@ apt-get install -y php5 libapache2-mod-php5
 /etc/init.d/apache2 restart
 rm -rf /var/www
 ln -fs /vagrant /var/www
-
-
-#Running selenium server 
-Xvfb :2 -screen 0 1024x768x24 &
-DISPLAY=:2 java -jar /var/www/pagelyzer/selenium-server-standalone-2.39.0.jar -port 8015 &
-#Create screen to run pagelyzer 
-Xvfb :1 -screen 0 1024x768x24 &
-
 
 
 # Install tools for downloading and building xcorrsound 
@@ -59,3 +45,30 @@ cpack -G DEB
 
 # Install xcorrsound package
 dpkg -i scape-xcorrsound*deb
+
+# Download Selenium to /var/lib/selenium
+mkdir -p /var/lib/selenium
+wget -q -O /var/lib/selenium/selenium-server-standalone-2.39.0.jar http://selenium.googlecode.com/files/selenium-server-standalone-2.39.0.jar 
+
+# Copy the Pagelyzer Jar to /var/lib/pagelyzer
+mkdir -p /var/lib/pagelyzer
+cp /vagrant/pagelyzer/jPagelyzer.jar /var/lib/pagelyzer
+
+# Copy the Selenium Xvfb script to init.d and register it
+cp /vagrant/xvfb-sel /etc/init.d/xvfb-sel
+chmod +x /etc/init.d/xvfb-sel
+update-rc.d xvfb-sel defaults
+service xvfb-sel start
+
+# Copy the pagelyzer Xvfb script to init.d and register it
+cp /vagrant/xvfb-pag /etc/init.d/xvfb-pag
+chmod +x /etc/init.d/xvfb-pag
+update-rc.d xvfb-pag defaults
+service xvfb-pag start
+
+# Copy the selenium script to init.d and register it
+cp /vagrant/selenium /etc/init.d/selenium
+chmod +x /etc/init.d/selenium
+update-rc.d selenium defaults
+service selenium start
+
