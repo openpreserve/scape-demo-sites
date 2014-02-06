@@ -16,6 +16,14 @@
 # Update apt repos
 apt-get update
 
+# Install firefox for pagelyzer 
+apt-get install -y firefox
+# Install xvfb for pagelyzer 
+apt-get install -y xvfb
+#install java  
+apt-get install -y openjdk-7-jre-headless
+
+
 # Install apache 2 and PHP 5
 apt-get install -y apache2
 apt-get install -y php5 libapache2-mod-php5
@@ -26,6 +34,15 @@ apt-get install -y php5 libapache2-mod-php5
 /etc/init.d/apache2 restart
 rm -rf /var/www
 ln -fs /vagrant /var/www
+
+
+#Running selenium server 
+Xvfb :2 -screen 0 1024x768x24 &
+DISPLAY=:2 java -jar /var/www/pagelyzer/selenium-server-standalone-2.39.0.jar -port 8015 &
+#Create screen to run pagelyzer 
+Xvfb :1 -screen 0 1024x768x24 &
+
+
 
 # Install tools for downloading and building xcorrsound 
 apt-get install -y git make cmake
@@ -42,4 +59,3 @@ cpack -G DEB
 
 # Install xcorrsound package
 dpkg -i scape-xcorrsound*deb
-
