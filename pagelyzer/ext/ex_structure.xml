@@ -2,7 +2,7 @@
 <java version="1.6.0_27" class="java.beans.XMLDecoder">
  <object class="Taverna.FileConfig">
   <void property="binSVM">
-   <string>/home/scape/public_html/pagelyzer/ext/ex1/bin/svm_struct</string>
+   <string>/var/www/pagelyzer/ext/ex1/bin/svm_struct</string>
   </void>
  </object>
 </java>
