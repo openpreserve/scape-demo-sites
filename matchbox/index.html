@@ -76,17 +76,16 @@ var score="";
 </head>
 <body>
 	
-	<div id="scape" class="sign-up">
+<div id="scape" class="sign-up">
 	<table width="100%">
-    <tr>
-        <td width="50%">
-        <img src="http://www.alliancepermanentaccess.org/wp-content/uploads/2012/09/SCAPE_Logo_Large_with_Tagline_png-300x114.jpg"/>
-        </td>
-         <td width="50%">
-        	 <h1 class="sign-up-title">Demo of Pagelyzer</h1>
-        </td>
-		
-    </tr>
+    	<tr>
+        	<td width="50%">
+        		<img src="http://www.alliancepermanentaccess.org/wp-content/uploads/2012/09/SCAPE_Logo_Large_with_Tagline_png-300x114.jpg"/>
+        	</td>
+         	<td width="50%">
+        	 	<h1 class="sign-up-title">Demo of Pagelyzer</h1>
+       		 </td>
+	</tr>
 	</table>
 
 	
@@ -96,52 +95,32 @@ var score="";
 <br/>
 <br/>
 	
-<div class="wrapper">
-	<ul>
-  <li  style="list-style:none;">
-    <input type="radio" name="custom_type" value="public" class="styled" checked=true  disabled=true/>
-    Image Based
-    <input type="radio" name="custom_type" 
-    value="private" id="custom_venuetype_private" class="styled" disabled=true/>
-    Content Based
-	<input type="radio" name="custom_type" 
-    value="private" id="custom_venuetype_private" class="styled" disabled=true/>
-    Hybrid
-  </li>
-</ul>
-	</div>
 
 	
-<br/>
-<br/>
-<br/>
-<br/>
-	
-  <form name="form1" id="form1" >
+ <form name="form1" id="form1" >
 	<table width="100%">
-    <tr>
-        <td>
-        	 <input type="text" id="url" class="sign-up-input" placeholder="Url to the collection" onkeypress="resetResults()">
-        </td>		
-    </tr>
+    		<tr>
+        		<td>
+        		 	<input type="text" id="url" class="sign-up-input" placeholder="Url to the collection" onkeypress="resetResults()">
+        		</td>		
+   		 </tr>
 	</table>
 	
 	
-		<div class="buttonHolder">
-		 <input type="button"  class="sign-up-button"  onclick="ajax_request()" value="Let's analyze for duplicates">
+	<div class="buttonHolder">
+		<input type="button"  class="sign-up-button"  onclick="ajax_request()" value="Let's analyze for duplicates">
   
 	  	<input type="button"  class="reset-button"  onclick="resetForm()" value="Reset"><br><br>
 		
-		
-	
-		</div>	
+
+	</div>	
 
  
   
 * Please enter valid Url to the digital collection <p/>
 * Remember that this demo aims to test the correctness of the tool, not the performance.
   <hr>
-	<table width="100%">
+<table width="100%">
     <tr>
         <td width="50%">
         	 <div id="progressBar">
