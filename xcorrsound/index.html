@@ -27,10 +27,10 @@
 		document.getElementById("content").innerHTML = "Processing...";
 
 		var formData = new FormData();
-		formData.append('inputWaveFile1', document
-				.getElementById('inputWaveFile1').files[0]);
-		formData.append('inputWaveFile2', document
-				.getElementById('inputWaveFile2').files[0]);
+		formData.append('firstWavToCompare', document
+				.getElementById('firstWavToCompare').files[0]);
+		formData.append('secondWavToCompare', document
+				.getElementById('secondWavToCompare').files[0]);
 		var submitTo = 'compare_files.php';
 		http_uploadBinaries('POST', submitTo, ajax_response, formData);
 	}
@@ -66,12 +66,12 @@
 			method="post" enctype="multipart/form-data">
 
 			<div class="input-button">
-				<label for="inputWaveFile1">Select first wave file</label><br /> <input
-					type="file" name="inputWaveFile1" id="inputWaveFile1">
+				<label for="firstWavToCompare">Select first wav file for comparison</label><br /> <input
+					type="file" name="firstWavToCompare" id="firstWavToCompare">
 			</div>
 			<div class="input-button">
-				<label for="inputWaveFile2">Select wave file for comparison</label><br />
-				<input type="file" name="inputWaveFile2" id="inputWaveFile2">
+				<label for="secondWavToCompare">Select second wav file for comparison</label><br />
+				<input type="file" name="secondWavToCompare" id="secondWavToCompare">
 			</div>
 			<br />
 
