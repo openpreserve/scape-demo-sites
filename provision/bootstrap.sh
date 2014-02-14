@@ -50,7 +50,7 @@ cpack -G DEB
 dpkg -i scape-xcorrsound*deb
 
 # Download and install jpylyzer package
-apt-get install -y jpylyzer
+apt-get install -y --force-yes jpylyzer
 
 # Download Selenium to /var/lib/selenium
 mkdir -p /var/lib/selenium
