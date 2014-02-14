@@ -8,103 +8,107 @@
 <script src="/StyleJS/ajax.js"></script>
 
 <script>
+	function resetForm() {
+		document.getElementById('analyze_form').reset();
+		resetResults();
+	}
 
-    function resetForm() {
-        document.getElementById('analyze_form').reset();
-        resetResults();
-    }
+	function resetResults() {
+		document.getElementById("content").innerHTML = "";
+		document.getElementById("progressBar").className = "";
+		document.getElementById("progressBar").innerHTML = "";
+	}
 
-    function resetResults() {
-        document.getElementById("content").innerHTML="";
-        document.getElementById("progressBar").className="";
-        document.getElementById("progressBar").innerHTML="";
-    }
+	/**Ajax Request (Submits the form below through AJAX
+	 *               and then calls the ajax_response function)
+	 */
+	function ajax_request() {
+		document.getElementById("progressBar").className = "spinner";
+		document.getElementById("content").innerHTML = "Processing...";
 
-    /**Ajax Request (Submits the form below through AJAX
-    *               and then calls the ajax_response function)
-    */
-    function ajax_request() {
-        document.getElementById("progressBar").className="spinner";
-        document.getElementById("content").innerHTML = "Processing...";
+		var formData = new FormData();
+		formData.append('jp2ToValidate', document
+				.getElementById('jp2ToValidate').files[0]);
+		var submitTo = 'check.php';
+		http_uploadBinaries('POST', submitTo, ajax_response, formData);
+	}
 
-        var formData = new FormData();
-        formData.append('inputJp2', document.getElementById('inputJp2').files[0]);
-        var submitTo = 'check.php';
-        http_uploadBinaries('POST', submitTo, ajax_response, formData);
-    }
-
-
-    /**Ajax Response (Called when ajax data has been retrieved)
-    *
-    * @param   object  data   Javascript (JSON) data object received
-    *                         through ajax call
-    */
-    function ajax_response(data) {
-        resetResults();
-        document.getElementById("content").innerHTML = data;
-    }
-
-    </script>
+	/**Ajax Response (Called when ajax data has been retrieved)
+	 *
+	 * @param   object  data   Javascript (JSON) data object received
+	 *                         through ajax call
+	 */
+	function ajax_response(data) {
+		resetResults();
+		document.getElementById("content").innerHTML = data;
+	}
+</script>
 </head>
 
 <body>
 
-  <div id="scape" class="sign-up">
-    <table>
-      <tr>
-        <td width="50%"><img
-          src="/images/logo.png" />
-        </td>
-        <td width="50%">
-          <h1 class="sign-up-title">Demonstration of Jpylyzer — a JP2 validator and properties extractor</h1>
-        </td>
-      </tr>
-    </table>
+	<div id="scape" class="sign-up">
+		<table>
+			<tr>
+				<td width="50%"><img src="/images/logo.png" /></td>
+				<td width="50%">
+					<h1 class="sign-up-title">Demonstration of Jpylyzer — a JP2
+						validator and properties extractor</h1>
+				</td>
+			</tr>
+		</table>
 
-    <br /> <br /> <br /> <br />
+		<br /> <br />
 
-    <form name="analyze_form" id="analyze_form" action="check.php" method="post" enctype="multipart/form-data">
-	  <div class="input-button">
-		<label for="inputWaveFile1">Select image file for Jpylyzer validation.</label><br />
-        <input type="file" name="inputWaveFile1" id="inputWaveFile1">
-      </div>
-      <br />
+		<form name="analyze_form" id="analyze_form" action="check.php"
+			method="post" enctype="multipart/form-data">
+			<div class="input-button">
+				<label for="jp2ToValidate">Select JP2 file for Jpylyzer
+					validation.</label><br /> <input type="file" name="jp2ToValidate"
+					id="jp2ToValidate">
+			</div>
+			<br />
 
-      <div class="buttonHolder">
-        <input type="button" class="sign-up-button" onclick="ajax_request()" value="Validate JP2K File">
-        <input type="button" class="reset-button" onclick="resetForm()" value="Reset">
-      </div>
+			<div class="buttonHolder">
+				<input type="button" class="sign-up-button" onclick="ajax_request()"
+					value="Validate JP2K File"> <input type="button"
+					class="reset-button" onclick="resetForm()" value="Reset">
+			</div>
 
-      <br />
-      <ul class="list">
-	      <li>This demonstration tests Jpylyzer functionality, but not performance which is affected by network bandwidth and server load.</li>
-      </ul>
-      <br />
+			<br />
+			<ul class="list">
+				<li>This demonstration tests Jpylyzer functionality, but not
+					performance which is affected by network bandwidth and server load.</li>
+			</ul>
+			<br />
 
-      <hr>
+			<hr>
 
-      <table>
-        <tr>
-          <td width="50%">
-            <div id="content" class="result-title"></div>
-          </td>
-          <td width="50%">
-            <div id="progressBar"></div>
-          </td>
-        </tr>
-      </table>
-    </form>
+			<table>
+				<tr>
+					<td width="50%">
+						<div id="content" class="result-title"></div>
+					</td>
+					<td width="50%">
+						<div id="progressBar"></div>
+					</td>
+				</tr>
+			</table>
+		</form>
 
-  </div>
-
-  <div id="links" class="sign-up">
-    <h1 class="sign-up-title">Related Links</h1>
-    <ul class="list">
-      <li><a href="https://github.com/openplanets/jpylyzer">Jpylyzer at Github</a></li>
-      <li><a href="http://www.openplanetsfoundation.org/blogs/2011-12-14-prototype-jp2-validator-and-properties-extractor">Jpylyzer blog post @ OPF</a></li>
-      <li>For any question or further information, please contact Johan van der Knijff at kb.nl</li>
-    </ul>
-  </div>
+	</div>
+	<div id="links" class="sign-up">
+		<h1 class="sign-up-title">Related Links</h1>
+		<ul class="list">
+			<li><a href="https://github.com/openplanets/jpylyzer">Jpylyzer
+					at Github</a></li>
+			<li><a
+				href="http://www.openplanetsfoundation.org/blogs/2011-12-14-prototype-jp2-validator-and-properties-extractor">Jpylyzer
+					blog post @ OPF</a></li>
+			<li>For any question or further information, please contact
+				Johan van der Knijff at kb.nl</li>
+		</ul>
+	</div>
 
 </body>
 </html>
