@@ -57,6 +57,3 @@ echo "Usage: $N {start|stop|restart|force-reload}" >&2
 exit 1
 ;;
 esac
-
-
-
