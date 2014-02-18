@@ -1,8 +1,5 @@
  <?php
 
-require_once "../StyleJS/json/JSON.php";
-$json = new Services_JSON();
-
 $url1 = $_GET["url1"];
 $url2 =  $_GET["url2"];
 $type = $_GET["type"];
@@ -31,9 +28,9 @@ else
 $p=proc_open ($cmd, $descriptorspec, $pipes);
 
 $out = stream_get_contents($pipes[1]) ;
-$out2 = $json->encode($out);
+$out2 = json_encode($out);
 $parts = explode('\n', $out2);
-$result = $json->encode($parts[sizeof($parts)-2]);
+$result = json_encode($parts[sizeof($parts)-2]);
 print($result);
 proc_close($p);
 ?>

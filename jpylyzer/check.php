@@ -4,21 +4,19 @@
 	// upload_max_filesize = 50M
 	// post_max_size = 192M
 	
-	require_once "../StyleJS/json/JSON.php";
-	$json = new Services_JSON();
-	
+
 	//expecting Jpylyzer is set up and configured
  	$output = array();
-  	$command = "jpylyzer " . escapeshellarg($_FILES['inputJp2']);
+  	$command = "jpylyzer " . escapeshellarg($_FILES['jp2ToValidate']["tmp_name"]);
    	exec($command, $output);
-  			 
- 	$formatted = "";
-   	foreach ( $output as $line ) {
-   		// append each line, but make it HTML-friendly first
-   		$formatted .= htmlspecialchars ( $line ) . "<br>";
-   	}
-
- 	$result = $json->encode("<br>Processed<br>" . $formatted);
+  	$xml = implode("", $output);
+  	$jpOut = simplexml_load_string($xml);
+  	$formatted = "<p>" . $jpOut->toolInfo->toolName . "-" . $jpOut->toolInfo->toolVersion . "<br />";
+  	$formatted .= "Valid JP2: " . $jpOut->isValidJP2 . "<br />";
+  	$formatted .= "File Type: " . $jpOut->properties->fileTypeBox->br . "<br />";
+  	$formatted .= "Height: " . $jpOut->properties->jp2HeaderBox->imageHeaderBox->height . "<br />";
+  	$formatted .= "Width: " . $jpOut->properties->jp2HeaderBox->imageHeaderBox->width . "</p>";
+  	$result = json_encode($formatted);
  	print($result);
 				
 ?>

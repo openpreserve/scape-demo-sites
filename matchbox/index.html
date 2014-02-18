@@ -3,9 +3,9 @@
 <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Demo Matchbox - Image based</title>
-  <link rel="stylesheet" href="../StyleJS/css/style.css">
+  <link rel="stylesheet" href="/StyleJS/css/style.css">
 
-<script src="../StyleJS/ajax.js"></script>
+<script src="/StyleJS/ajax.js"></script>
 
 <script>
 
@@ -80,10 +80,10 @@ var score="";
 	<table width="100%">
     	<tr>
         	<td width="50%">
-        		<img src="http://www.alliancepermanentaccess.org/wp-content/uploads/2012/09/SCAPE_Logo_Large_with_Tagline_png-300x114.jpg"/>
+        		<img src="/images/logo.png"/>
         	</td>
          	<td width="50%">
-        	 	<h1 class="sign-up-title">Demo of Matchbox</h1>
+        	 	<h1 class="sign-up-title">Matchbox Demonstration, coming soon.</h1>
        		 </td>
 	</tr>
 	</table>
@@ -101,24 +101,20 @@ var score="";
 	<table width="100%">
     		<tr>
         		<td>
-        		 	<input type="text" id="url" class="sign-up-input" placeholder="Url to the collection" onkeypress="resetResults()">
+        		 	<input type="text" id="url" class="sign-up-input" placeholder="" onkeypress="resetResults()">
         		</td>		
    		 </tr>
 	</table>
 	
 	
 	<div class="buttonHolder">
-		<input type="button"  class="sign-up-button"  onclick="ajax_request()" value="Let's analyze for duplicates">
+		<input type="button"  class="sign-up-button"  onclick="ajax_request()" value="Check for duplicate images.">
   
 	  	<input type="button"  class="reset-button"  onclick="resetForm()" value="Reset"><br><br>
 		
 
 	</div>	
 
- 
-  
-* Please enter valid Url to the digital collection <p/>
-* Remember that this demo aims to test the correctness of the tool, not the performance.
   <hr>
 <table width="100%">
     <tr>
