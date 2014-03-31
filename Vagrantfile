@@ -14,4 +14,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Port forward HTTP (80) to host 2020
     config.vm.network :forwarded_port, host: 2020, guest: 80
+
+    # Set the box host-name
+    config.vm.hostname = "scape-demos"
+
+    # VirtualBox specific, set the virtual box name
+    config.vm.provider "virtualbox" do |v|
+        v.name = "scape-demos-dev"
+    end
 end
