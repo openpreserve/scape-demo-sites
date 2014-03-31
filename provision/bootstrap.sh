@@ -78,3 +78,56 @@ chmod +x /etc/init.d/selenium
 update-rc.d selenium defaults
 service selenium start
 
+###
+# Install matchbox
+###
+
+# Remove some old packages that we need to replace for Matchbox build.
+echo "Removing conflicting matchbox dependencies ..."
+cd /tmp
+sudo apt-get remove libopencv-dev libcv-dev libopencv-features2d-dev libhighgui-dev
+echo "Installing Matchbox build dependencies."
+sudo apt-get install libboost-all-dev zlib1g-dev libjpeg8-dev libpng12-dev libtiff4-dev libjasper-dev libgtk2.0-dev python-numpy libopenexr-dev
+
+# Clone GitHub project and move into 
+echo "Cloning Matchbox from GitHub."
+git clone https://github.com/openplanets/matchbox.git
+cd matchbox/
+
+# Set env var for OPEN CV version
+OPENCVVER=2.4.6.1
+# Download and extract Open CV source!
+echo "Downloading OpenCV source."
+wget -O opencv-${OPENCVVER}.tar.gz http://downloads.sourceforge.net/project/opencvlibrary/opencv-unix/${OPENCVVER}/opencv-${OPENCVVER}.tar.gz && tar zxf opencv-${OPENCVVER}.tar.gz
+
+# Set up build directories
+mkdir opencv-bin
+cd opencv-$OPENCVVER
+mkdir build
+cd build
+
+# Start Open CV Build cmake and make install
+echo "Building OpenCV..."
+cmake .. -DCMAKE_INSTALL_PREFIX=../../opencv-bin
+make
+make install
+
+# This is the path to the installed OpenCVConfig.cmake
+# NOTE: a *full* path to the file should be passed to cmake, hence the addition of `pwd`
+cd ../..
+mkdir build
+cd build
+pwd
+echo "Building Matchbox."
+cmake .. -DOpenCV_DIR=`pwd`/../opencv-bin/share/OpenCV/
+make
+cpack
+
+echo "Checking matchbox installation."
+sudo dpkg -i scape-matchbox*deb
+ldd /usr/bin/mb_extractfeatures
+/usr/bin/mb_extractfeatures --help
+ldd /usr/bin/mb_compare
+/usr/bin/mb_compare --help
+ldd /usr/bin/mb_train
+/usr/bin/mb_train --help
