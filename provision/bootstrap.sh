@@ -127,7 +127,12 @@ echo "Checking matchbox installation."
 sudo dpkg -i scape-matchbox*deb
 ldd /usr/bin/mb_extractfeatures
 /usr/bin/mb_extractfeatures --help
+#sudo cp /usr/bin/mb_extractfeatures /usr/local/bin
 ldd /usr/bin/mb_compare
 /usr/bin/mb_compare --help
+#sudo cp /usr/bin/mb_compare /usr/local/bin
 ldd /usr/bin/mb_train
 /usr/bin/mb_train --help
+#sudo cp /usr/bin/mb_train /usr/local/bin
+sudo cp /tmp/matchbbox/pc-qa-matchbox/Python/FindDuplicates.py /usr/local/lib
+FindDuplicates -h
