@@ -134,5 +134,5 @@ ldd /usr/bin/mb_compare
 ldd /usr/bin/mb_train
 /usr/bin/mb_train --help
 #sudo cp /usr/bin/mb_train /usr/local/bin
-sudo cp /tmp/matchbbox/pc-qa-matchbox/Python/FindDuplicates.py /usr/local/lib
+sudo cp /tmp/matchbbox/pc-qa-matchbox/Python/FindDuplicates.py /usr/share/bin
 FindDuplicates -h
