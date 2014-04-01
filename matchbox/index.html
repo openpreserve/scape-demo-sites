@@ -1,153 +1,115 @@
 <html>
 <head>
 <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Demo Matchbox - Image based</title>
-  <link rel="stylesheet" href="/StyleJS/css/style.css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Demonstration of Matchbox tool</title>
+<link rel="stylesheet" href="/StyleJS/css/style.css">
 
 <script src="/StyleJS/ajax.js"></script>
 
 <script>
-
-/**Ajax Request (Submits the form below through AJAX
- *               and then calls the ajax_response function)
- */
-
-
-function resetForm(){
-    document.getElementById('form1').reset();
-	resetResults();
-	 
-}
-
-function resetResults()
-{
-	document.getElementById("content").innerHTML="";
-
-	document.getElementById("progressBar").className="";
-	
-	document.getElementById("progressBar").innerHTML="";
-}
-
-function ajax_request() {
-
-	resetResults();
-
-   document.getElementById("progressBar").className="spinner";
-  var url = document.getElementById("url").value;//by id
-
-  var submitTo = 'check.php?url=' +encodeURIComponent(url);
-
-  http('POST', submitTo, ajax_response, document.form1);
-
-}
-
-
-/**Ajax Response (Called when ajax data has been retrieved)
- *
- * @param   object  data   Javascript (JSON) data object received
- *                         through ajax call
- */
-function ajax_response(data) {
-	
-var score="";
-  for(var key in data) {
-    score+= data[key];
-  }
-	score = score.substring(0, score.length - 1);
-	document.getElementById("content").innerHTML = "Score: " + parseFloat(score).toFixed(2);
-	
-	if(parseFloat(score) > 0)
-	{
-		  document.getElementById("progressBar").className="OK";
-		  document.getElementById("progressBar").innerHTML="<br/><br/><br/>SIMILAR";
-		  
+	function resetForm() {
+		document.getElementById('analyze_form').reset();
+		resetResults();
 	}
-	else{
-		  document.getElementById("progressBar").className="NOTOK";
-		  document.getElementById("progressBar").innerHTML="<br/><br/><br/>DISSIMILAR";
+
+	function resetResults() {
+		document.getElementById("content").innerHTML = "";
+		document.getElementById("progressBar").className = "";
+		document.getElementById("progressBar").innerHTML = "";
 	}
-}
 
+	/**Ajax Request (Submits the form below through AJAX
+	 *               and then calls the ajax_response function)
+	 */
+	function ajax_request() {
+		document.getElementById("progressBar").className = "spinner";
+		document.getElementById("content").innerHTML = "Processing...";
 
+		var formData = new FormData();
+		formData.append('matchboxToValidate', document
+				.getElementById('matchboxToValidate').files[0]);
+		var submitTo = 'check.php';
+		http_uploadBinaries('POST', submitTo, ajax_response, formData);
+	}
+
+	/**Ajax Response (Called when ajax data has been retrieved)
+	 *
+	 * @param   object  data   Javascript (JSON) data object received
+	 *                         through ajax call
+	 */
+	function ajax_response(data) {
+		resetResults();
+		document.getElementById("content").innerHTML = data;
+	}
 </script>
-
-
 </head>
+
 <body>
-	
-<div id="scape" class="sign-up">
-	<table width="100%">
-    	<tr>
-        	<td width="50%">
-        		<img src="/images/logo.png"/>
-        	</td>
-         	<td width="50%">
-        	 	<h1 class="sign-up-title">Matchbox Demonstration, coming soon.</h1>
-       		 </td>
-	</tr>
-	</table>
 
-	
-	
-<br/>
-<br/>
-<br/>
-<br/>
-	
+	<div id="scape" class="sign-up">
+		<table>
+			<tr>
+				<td width="50%"><img src="/images/logo.png" /></td>
+				<td width="50%">
+					<h1 class="sign-up-title">Demonstration of Matchbox tool</h1>
+				</td>
+			</tr>
+		</table>
 
-	
- <form name="form1" id="form1" >
-	<table width="100%">
-    		<tr>
-        		<td>
-        		 	<input type="text" id="url" class="sign-up-input" placeholder="" onkeypress="resetResults()">
-        		</td>		
-   		 </tr>
-	</table>
-	
-	
-	<div class="buttonHolder">
-		<input type="button"  class="sign-up-button"  onclick="ajax_request()" value="Check for duplicate images.">
-  
-	  	<input type="button"  class="reset-button"  onclick="resetForm()" value="Reset"><br><br>
-		
+		<br /> <br />
 
-	</div>	
+		<form name="analyze_form" id="analyze_form" action="check.php"
+			method="post" enctype="multipart/form-data">
+			<div class="input-button">
+				<label for="matchboxToValidate">Select collection ZIP file for duplicate detection using Matchbox.</label><br /> <input type="file" name="matchboxToValidate"
+					id="matchboxToValidate">
+			</div>
+			<br />
 
-  <hr>
-<table width="100%">
-    <tr>
-        <td width="50%">
-        	 <div id="progressBar">
-        	 	
-        	 </div>
-        </td>
-         <td width="50%">
-        	 <div id="content"  class="result-title">
-				</div>
-        </td>
-		
-    </tr>
-	</table>
+			<div class="buttonHolder">
+				<input type="button" class="sign-up-button" onclick="ajax_request()"
+					value="Analyse ZIP File"> <input type="button"
+					class="reset-button" onclick="resetForm()" value="Reset">
+			</div>
 
-</form>
-		
-	</div>	
-		
-<div id="links" class="sign-up">
-	 <h1 class="sign-up-title">Related Links</h1>
-	 <ul class="list">
-  <li> Matchbox at Wiki <a href="http://wiki.opf-labs.org/display/TR/Matchbox">here</a> </li>
-  <li> Matchbox at Github <a href="https://github.com/openplanets/matchbox"> here </a></li>
-  <li> Matchbox blog post: coming soon</li>
-  <li> Matchbox scability test results by Austrian National Library <a href="http://http://wiki.opf-labs.org/display/SP/EVAL-LSDR11-1"> here </a></li>
-  <li> For any question or further information please contact to alexander.schindler@ait.ac.at or roman.graf@ait.ac.at</a></li>
-</ul> 
-</div>
-	
-		
+			<br />
+			<ul class="list">
+				<li>This demonstration tests Matchbox functionality, but not
+					performance which is affected by network bandwidth and image processing complexity.</li>
+			</ul>
+			<br />
+
+			<hr>
+
+			<table>
+				<tr>
+					<td width="50%">
+						<div id="content" class="result-title"></div>
+					</td>
+					<td width="50%">
+						<div id="progressBar"></div>
+					</td>
+				</tr>
+			</table>
+		</form>
+
+	</div>
+	<div id="links" class="sign-up">
+		<h1 class="sign-up-title">Related Links</h1>
+		<ul class="list">
+			<li> Matchbox at Wiki <a href="http://wiki.opf-labs.org/display/TR/Matchbox">here</a> </li>
+			<li> Matchbox at Github <a href="https://github.com/openplanets/matchbox"> here </a></li>
+			<li><a
+				href="http://www.openplanetsfoundation.org/blogs/2013-06-20-matchbox-toolset-webcast">Matchbox
+					blog post @ OPF</a></li>
+			<li> Matchbox scability test results by Austrian National Library <a href="http://wiki.opf-labs.org/display/SP/EVAL-LSDR11-1"> here </a></li>
+			<li> For any question or further information please contact to alexander.schindler@ait.ac.at or roman.graf@ait.ac.at</a></li>		
+		</ul>
+	</div>
 
 </body>
 </html>
+
+
 
