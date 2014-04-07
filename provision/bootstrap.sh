@@ -85,9 +85,10 @@ service selenium start
 # Remove some old packages that we need to replace for Matchbox build.
 echo "Removing conflicting matchbox dependencies ..."
 cd /tmp
-sudo apt-get remove libopencv-dev libcv-dev libopencv-features2d-dev libhighgui-dev
+sudo apt-get remove -y libopencv-dev libcv-dev libopencv-features2d-dev libhighgui-dev
 echo "Installing Matchbox build dependencies."
-sudo apt-get install libboost-all-dev zlib1g-dev libjpeg8-dev libpng12-dev libtiff4-dev libjasper-dev libgtk2.0-dev python-numpy libopenexr-dev
+sudo apt-get install -y libboost-all-dev zlib1g-dev libjpeg8-dev libpng12-dev libtiff4-dev libjasper-dev libgtk2.0-dev python-numpy libopenexr-dev
+
 
 # Clone GitHub project and move into 
 echo "Cloning Matchbox from GitHub."
@@ -122,18 +123,37 @@ echo "Building Matchbox."
 cmake .. -DOpenCV_DIR=`pwd`/../opencv-bin/share/OpenCV/
 make
 cpack
+dpkg -i scape-matchbox*deb
 
 echo "Checking matchbox installation."
-sudo dpkg -i scape-matchbox*deb
-ldd /usr/bin/mb_extractfeatures
-/usr/bin/mb_extractfeatures --help
-#sudo cp /usr/bin/mb_extractfeatures /usr/local/bin
-ldd /usr/bin/mb_compare
-/usr/bin/mb_compare --help
-#sudo cp /usr/bin/mb_compare /usr/local/bin
-ldd /usr/bin/mb_train
-/usr/bin/mb_train --help
-#sudo cp /usr/bin/mb_train /usr/local/bin
-sudo cp /tmp/matchbbox/Python/FindDuplicates.py /usr/share/bin
-sudo cp /tmp/matchbbox/Python/MatchboxLib.py /usr/share/bin
+mb_extractfeatures --help
+mb_compare --help
+mb_train --help
+
+# Move the matchbox Python scripts to pyshared
+mkdir -p /usr/share/pyshared/matchbox
+chmod +x /tmp/matchbox/Python/*.py
+mv /tmp/matchbox/Python/*.py /usr/share/pyshared/matchbox/
+
+# link from python 2.7 dist-packages
+mkdir -p /usr/lib/python2.7/dist-packages/matchbox
+ln -fs /usr/share/pyshared/matchbox/FindDuplicates.py /usr/lib/python2.7/dist-packages/matchbox/FindDuplicates.py
+ln -fs /usr/share/pyshared/matchbox/CompareCollections.py /usr/lib/python2.7/dist-packages/matchbox/CompareCollections.py
+ln -fs /usr/share/pyshared/matchbox/MatchboxLib.py /usr/lib/python2.7/dist-packages/matchbox/MatchboxLib.py 
+
+# Create sym-links for the commands for now
+ln -fs /usr/share/pyshared/matchbox/FindDuplicates.py /usr/bin/FindDuplicates
+ln -fs /usr/share/pyshared/matchbox/CompareCollections.py /usr/bin/CompareCollections
+
+# Replace faulty library names in script
+sed -i.bak s/"\"extractfeatures\""/"\"mb_extractfeatures\""/g /usr/share/pyshared/matchbox/FindDuplicates.py
+sed -i.bak s/"\"compare\""/"\"mb_compare\""/g /usr/share/pyshared/matchbox/FindDuplicates.py
+sed -i.bak s/"\"train\""/"\"mb_train\""/g /usr/share/pyshared/matchbox/FindDuplicates.py
+
+# Add some test data for now
+apt-get install -y unzip
+mkdir /matchbox
+unzip /vagrant/deploy/matchbox/matchbox-samples.zip /matchbox
+chown -R www-data:www-data /matchbox/matchbox-samples
+
 FindDuplicates -h
