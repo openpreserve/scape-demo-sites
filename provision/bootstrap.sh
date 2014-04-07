@@ -153,7 +153,7 @@ sed -i.bak s/"\"train\""/"\"mb_train\""/g /usr/share/pyshared/matchbox/FindDupli
 # Add some test data for now
 apt-get install -y unzip
 mkdir /matchbox
-unzip /vagrant/deploy/matchbox/matchbox-samples.zip /matchbox
+unzip /vagrant/deploy/matchbox/matchbox-samples.zip -d /matchbox
 chown -R www-data:www-data /matchbox/matchbox-samples
 
 FindDuplicates -h
