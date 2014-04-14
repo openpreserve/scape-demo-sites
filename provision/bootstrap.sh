@@ -146,9 +146,9 @@ ln -fs /usr/share/pyshared/matchbox/FindDuplicates.py /usr/bin/FindDuplicates
 ln -fs /usr/share/pyshared/matchbox/CompareCollections.py /usr/bin/CompareCollections
 
 # Replace faulty library names in script
-sed -i.bak s/"\"extractfeatures\""/"\"mb_extractfeatures\""/g /usr/share/pyshared/matchbox/FindDuplicates.py
-sed -i.bak s/"\"compare\""/"\"mb_compare\""/g /usr/share/pyshared/matchbox/FindDuplicates.py
-sed -i.bak s/"\"train\""/"\"mb_train\""/g /usr/share/pyshared/matchbox/FindDuplicates.py
+#sed -i.bak s/"\"extractfeatures\""/"\"mb_extractfeatures\""/g /usr/share/pyshared/matchbox/FindDuplicates.py
+#sed -i.bak s/"\"compare\""/"\"mb_compare\""/g /usr/share/pyshared/matchbox/FindDuplicates.py
+#sed -i.bak s/"\"train\""/"\"mb_train\""/g /usr/share/pyshared/matchbox/FindDuplicates.py
 
 # Add some test data for now
 apt-get install -y unzip
