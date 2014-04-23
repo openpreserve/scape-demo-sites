@@ -17,9 +17,12 @@
 
     //expecting Jpylyzer is set up and configured
     $output = array();
-    //$myFile = $_FILES['jp2ToValidate']["tmp_name"];
-    $myFile = tempnam(sys_get_temp_dir(), "tempFile");
-    file_put_contents($myFile, fopen($_POST['jp2ToValidateFromUrl'], 'r'));
+    if ($_POST['jp2ToValidateFromUrl'] != "") {
+        $myFile = tempnam(sys_get_temp_dir(), "tempFile");
+        file_put_contents($myFile, fopen($_POST['jp2ToValidateFromUrl'], 'r'));
+    } else {
+        $myFile = $_FILES['jp2ToValidate']["tmp_name"];
+    }
     $command = "jpylyzer " . escapeshellarg($myFile);
     exec($command, $output);
     $xml = implode("", $output);

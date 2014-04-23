@@ -45,6 +45,9 @@
 		resetResults();
 		document.getElementById("content").innerHTML = data;
 	}
+    function resetUrl() {
+		document.getElementById('jp2ToValidateFromUrl').value = "";
+    }
 </script>
 </head>
 
@@ -67,10 +70,11 @@
 			method="post" enctype="multipart/form-data">
 			<div class="input-button">
 				<label for="jp2ToValidate">Select JP2 file for Jpylyzer validation.</label><br />
-                <input type="file" name="jp2ToValidate" id="jp2ToValidate">
+                <input type="file" name="jp2ToValidate" id="jp2ToValidate" onchange="resetUrl()">
 			</div>
 			<div class="input-button">
 				<label for="jp2ToValidate">OR copy and paste the url of a JP2 file for Jpylyzer validation.</label><br />
+                <!-- TODO: reset file!! -->
                 <input type="url" name="jp2ToValidateFromUrl" id="jp2ToValidateFromUrl">
 			</div>
 			<br />
