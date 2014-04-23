@@ -4,14 +4,16 @@
     // upload_max_filesize = 50M
     // post_max_size = 192M
 
-    //function recurIterate(node) {
-    //    $outString .= "<li>" . $elem.getName() . "</li>";
-
-    //    foreach($node as $child) {
-    //        $outString .= recurIterate($child);
-    //    }
-    //    return $outString;
-    //}
+    function recurIterate($node) {
+        $outString = "";
+        if ($node == "False") {
+            $outString .= "<li>" . $node->getName() . "</li>";
+        }
+        foreach($node as $child) {
+            $outString .= recurIterate($child);
+        }
+        return $outString;
+    }
 
     //expecting Jpylyzer is set up and configured
     $output = array();
@@ -19,16 +21,16 @@
     exec($command, $output);
     $xml = implode("", $output);
     $jpOut = simplexml_load_string($xml);
-    $formatted = "<p>" . $jpOut->toolInfo->toolName . "-" . $jpOut->toolInfo->toolVersion . "<br />";
+    $formatted = "<p>Jpylyzer version: " . $jpOut->toolInfo->toolVersion . "<br />";
     $formatted .= "Valid JP2: " . $jpOut->isValidJP2 . "<br />";
     $formatted .= "File Type: " . $jpOut->properties->fileTypeBox->br . "<br />";
     $formatted .= "Height: " . $jpOut->properties->jp2HeaderBox->imageHeaderBox->height . "<br />";
     $formatted .= "Width: " . $jpOut->properties->jp2HeaderBox->imageHeaderBox->width . "</p>";
-    //print($result);
+
+    $formatted .= "<p>Failed validation tests:</p>";
+
     foreach($jpOut->tests as $test) {
-        foreach($test as $elem) {
-            $formatted .= $elem->getName() . "<br/>";
-        }
+        $formatted .= "<ul>" . recurIterate($test) . "</ul>";
     }
     $result = json_encode($formatted);
     print($result);
