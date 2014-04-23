@@ -17,7 +17,10 @@
 
     //expecting Jpylyzer is set up and configured
     $output = array();
-    $command = "jpylyzer " . escapeshellarg($_FILES['jp2ToValidate']["tmp_name"]);
+    //$myFile = $_FILES['jp2ToValidate']["tmp_name"];
+    $myFile = tempnam(sys_get_temp_dir(), "tempFile");
+    file_put_contents($myFile, fopen($_POST['jp2ToValidateFromUrl'], 'r'));
+    $command = "jpylyzer " . escapeshellarg($myFile);
     exec($command, $output);
     $xml = implode("", $output);
     $jpOut = simplexml_load_string($xml);
@@ -26,7 +29,6 @@
     $formatted .= "File Type: " . $jpOut->properties->fileTypeBox->br . "<br />";
     $formatted .= "Height: " . $jpOut->properties->jp2HeaderBox->imageHeaderBox->height . "<br />";
     $formatted .= "Width: " . $jpOut->properties->jp2HeaderBox->imageHeaderBox->width . "</p>";
-
     $formatted .= "<p>Failed validation tests:</p>";
 
     foreach($jpOut->tests as $test) {
