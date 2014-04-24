@@ -124,12 +124,12 @@ echo "load matchbox sources"
 git clone https://github.com/openplanets/matchbox.git
 echo "matchbox cloned"
 cd matchbox/
-echo "make matchbox"
-make
-echo "cpack matchbox"
-cpack
+#echo "make matchbox"
+#make
+#echo "cpack matchbox"
+#cpack
 echo "check matchbox"
-sudo dpkg -i scape-matchbox*deb
+#sudo dpkg -i scape-matchbox*deb
 ldd /usr/bin/mb_extractfeatures
 /usr/bin/mb_extractfeatures --help
 ldd /usr/bin/mb_compare
