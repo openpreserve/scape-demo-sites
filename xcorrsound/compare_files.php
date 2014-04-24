@@ -20,9 +20,7 @@
 
 	//expecting waveform-compare is set up
 	$output = array();
-  	$command = "diff -s " . escapeshellarg(realpath($file1)) . " " . escapeshellarg(realpath($file2));
-//  	$command = "file " . escapeshellarg($_POST['menuselection']);
-//  	$command = "waveform-compare " . escapeshellarg(realpath($file1)) . " " . escapeshellarg(realpath($file2));
+  	$command = "waveform-compare " . escapeshellarg(realpath($file1)) . " " . escapeshellarg(realpath($file2));
    	exec($command, $output);	
 
  	$formatted = "";
@@ -31,7 +29,6 @@
    		$formatted .= htmlspecialchars ( $line ) . "<br>";
    	}
 
-//	$result = json_encode( print_r($_POST, TRUE) . "<br />" . print_r($_FILES, TRUE) . "<br />Processed<br />" . $formatted);
 	$result = json_encode("<br />Processed<br />" . $formatted);
  	print($result);
 ?>
