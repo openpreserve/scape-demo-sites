@@ -1,5 +1,9 @@
 # Demonstration site for xcorrsound
 
+Requirements
+The sample wave files need to be present on the server, this should be taken care of using vagrant
+that will download the sample files during setup.
+
 Configuration
 
 PHP
