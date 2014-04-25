@@ -60,6 +60,10 @@ wget -q -O /var/lib/selenium/selenium-server-standalone-2.39.0.jar http://seleni
 mkdir -p /var/lib/pagelyzer
 cp /vagrant/lib/jPagelyzer.jar /var/lib/pagelyzer
 
+# Copy the FLint Jar to /var/lib/flint -- TODO: debian-package flint
+mkdir -p /var/lib/flint
+cp /vagrant/lib/flint.jar /var/lib/flint
+
 # Copy the Selenium Xvfb script to init.d and register it
 cp /vagrant/provision/services/xvfb-sel /etc/init.d/xvfb-sel
 chmod +x /etc/init.d/xvfb-sel
