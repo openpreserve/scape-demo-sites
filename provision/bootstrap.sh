@@ -19,8 +19,8 @@ echo "install scape demo tools ..."
 #echo "deb http://dl.bintray.com/openplanets/opf-debian /" >> /etc/apt/sources.list 
 apt-get update
 
-# Install apache 2 and PHP 5 for demo site
-apt-get install -y apache2 php5 libapache2-mod-php5
+# Install apache 2, Python module and PHP 5 for demo site
+apt-get install -y apache2 php5 libapache2-mod-php5 libapache2-mod-python mod-alias mod-cgi
 
 # Install firefox and Java for pagelyzer 
 #apt-get install -y firefox openjdk-7-jre-headless
