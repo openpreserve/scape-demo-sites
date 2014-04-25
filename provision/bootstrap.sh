@@ -20,7 +20,7 @@ echo "install scape demo tools ..."
 apt-get update
 
 # Install apache 2, Python module and PHP 5 for demo site
-apt-get install -y apache2 php5 libapache2-mod-php5 libapache2-mod-python mod-alias mod-cgi
+apt-get install -y apache2 php5 libapache2-mod-php5 libapache2-mod-python
 
 # Install firefox and Java for pagelyzer 
 #apt-get install -y firefox openjdk-7-jre-headless
