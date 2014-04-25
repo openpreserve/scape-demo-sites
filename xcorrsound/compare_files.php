@@ -18,9 +18,10 @@
 		$file2 = $_FILES['file_select_2']["tmp_name"];
 	}
 
-	//expecting waveform-compare is set up
+	//expecting xcorrsound to be set up
 	$output = array();
-  	$command = "waveform-compare " . escapeshellarg(realpath($file1)) . " " . escapeshellarg(realpath($file2));
+//  	$command = "diff -s " . escapeshellarg(realpath($file1)) . " " . escapeshellarg(realpath($file2));
+  	$command = $_POST['xcorrsoundFunction'] . " " . escapeshellarg(realpath($file1)) . " " . escapeshellarg(realpath($file2));
    	exec($command, $output);	
 
  	$formatted = "";
@@ -29,6 +30,7 @@
    		$formatted .= htmlspecialchars ( $line ) . "<br>";
    	}
 
+//	$result = json_encode( print_r($_POST, TRUE) . "<br />" . print_r($_FILES, TRUE) . "<br />Processed<br />" . $formatted . "<br />Command<br />" . $command);
 	$result = json_encode("<br />Processed<br />" . $formatted);
  	print($result);
 ?>

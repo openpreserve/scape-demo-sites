@@ -22,12 +22,13 @@
 	/**Ajax Request (Submits the form below through AJAX
 	 *               and then calls the ajax_response function)
 	 */
-	function ajax_request() {
+	function ajax_request(xcorrsoundFunction) {
 		document.getElementById("progressBar").className = "spinner";
 		document.getElementById("content").innerHTML = "Processing...";
 
 		var submitTo = 'compare_files.php';
 		var formData = new FormData();
+ 		formData.append('xcorrsoundFunction', xcorrsoundFunction);
 		formData.append('file_select_1', document.getElementById('file_select_1').files[0]);
 		formData.append('file_select_2', document.getElementById('file_select_2').files[0]);
 		formData.append('demo_select_1', document.getElementById('demo_select_1').value);
@@ -128,7 +129,10 @@
         <br />
     
         <div class="buttonHolder">
-          <input type="button" class="sign-up-button" onclick="ajax_request()" value="Compare Waveforms"> <input type="button" class="reset-button" onclick="resetForm()" value="Reset">
+          <input type="button" class="sign-up-button" onclick="ajax_request('waveform-compare')" value="Compare Waveforms">
+          <input type="button" class="sign-up-button" onclick="ajax_request('overlap-analysis')" value="Find Overlap">
+          <input type="button" class="sign-up-button" onclick="ajax_request('sound-match')" value="Search for Sample">
+          <input type="button" class="reset-button" onclick="resetForm()" value="Reset">
         </div>
   
         <br />
