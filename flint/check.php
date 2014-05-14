@@ -4,12 +4,21 @@
     // upload_max_filesize = 50M
     // post_max_size = 192M
 
-    function parseFlintXml($checkedFile) {
-        $outString = "<li>Results for checked file:";
 
-        $outString .= "<ul>";
+    function parseFlintXml($checkedFile) {
+        if ($checkedFile['result'] == "failed") {
+            $outString = "<li class='failed'>CheckResult: *" . $checkedFile['result'] . "*";
+        } else {
+            $outString = "<li>CheckResult: *" . $checkedFile['result'] . "*";
+        }
+
+        $outString .= "<ul class='check-result'>";
         foreach($checkedFile->checkCategory as $cat) {
-            $outString .= "<li>" . $cat['name'] . ": " . $cat['result'] . "</li>";
+            if ($cat['result'] != "failed") {
+                $outString .= "<li class='happy'>" . $cat['name'] . ": *" . $cat['result'] . "*</li>";
+            } else {
+                $outString .= "<li>" . $cat['name'] . ": *" . $cat['result'] . "*</li>";
+            }
         }
         $outString .= "</ul>";
         $outString .= "</li>";
@@ -36,12 +45,12 @@
     $xml = simplexml_load_file($outputDir . "/results.xml");
 
 
-    $formatted = "<ul>"; 
+    $formatted = "<ul class='output'>";
     foreach($xml as $checkedFile) {
         $formatted .= parseFlintXml($checkedFile);
     }
     $formatted .=  "</ul>";
 
-    print(json_encode("output: " . $formatted));
+    print(json_encode($formatted));
 
 ?>
