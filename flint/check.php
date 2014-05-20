@@ -1,5 +1,12 @@
 <?php
 
+    // for debuging php via a browser's javascript console
+    // (firebug extension in firefox or native in chrome):
+    //require_once('/vagrant/dev-tools/php-console-master/src/PhpConsole/__autoload.php');
+    //$handler = PhpConsole\Handler::getInstance();
+    //$handler->start();
+
+
     // Note: have change php.ini to be able to upload larger files
     // upload_max_filesize = 50M
     // post_max_size = 192M
@@ -27,7 +34,9 @@
     }
 
     $outputDir = sys_get_temp_dir() . "/flintTempDir";
-    mkdir($outputDir, 755);
+    if(!(file_exists($outputDir) && is_dir($outputDir))) {
+        mkdir($outputDir, 755);
+    }
 
     //expecting flint is set up and configured
     $output = array();
@@ -36,9 +45,12 @@
         file_put_contents($myFile, fopen($_POST['flintValidateFromUrl'], 'r'));
     } else {
         $myFile = $_FILES['flintValidate']["tmp_name"];
+        //$handler->debug("file temporarily saved under " . $myFile);
     }
 
-    $command = "java -jar /var/lib/flint/flint.jar " . escapeshellarg($myFile) . " --output-directory " . $outputDir;
+    $command = "java -jar /var/lib/flint/flint.jar " . escapeshellarg($myFile) . " --output " . $outputDir;
+
+    //$handler->debug("running flint with command: " . $command);
 
     exec($command, $output);
 
