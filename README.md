@@ -99,18 +99,20 @@ to ensure that everything works from a clean install.  If this is OK then go ahe
 
 #### Creating a New Demonstrator
 
-1. Create a folder with the name of your tool: ex: pagelyzer, xcorrsound etc. 
-2. Copy the files index.html and check.php in Templates folder to your new folder 
-3. Update these two files according to your needs 
+1. Create a folder with the name of your tool: ex: pagelyzer, xcorrsound etc.
+2. Copy the files index.html and check.php in Templates folder to your new folder
+3. Update these two files according to your needs
 
-If you would like to change the interface, please create a new StyleJS folder and add your css and js files into it. 
+If you would like to change the interface, please create a new StyleJS folder and add your css and js files into it.
 Once we have different propositions, we can choose one to apply to all tools demo.
 
 ## <a name="deploying"></a>Deploying the Demonstrator
 
 *TODO* Deployment script and instructions.
 
+## A note on debugging php
+For anybody that is not familiar with php and wants to know how to get some debugging information: A neat way is to hook php 'logs' onto a browser javascript console as in Firefox's Firebug extension or Chrome's native console. There are several projects doing this, I have had a look at <a href="http://php-console.com/">http://php-console.com/</a>. I followed <a href="http://php-console.com/instance/examples/#debug_vars">these instructions</a>, all very straigthforward, gives you console error logs, even pop-up dialogs (which can be switched off if annoying) and more.
+
 ## More Information
 
 The [Vagrant Getting Started Guide](http://docs.vagrantup.com/v2/getting-started/index.html) is unsurprisingly a good introduction to using Vagrant.
-
