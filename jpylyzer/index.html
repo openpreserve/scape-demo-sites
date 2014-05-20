@@ -4,6 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>Demonstration of JP2 validation — a jpylyzer tool</title>
 <link rel="stylesheet" href="/StyleJS/css/style.css">
+<link rel="stylesheet" href="/jpylyzer/style.css">
 
 <script src="/StyleJS/ajax.js"></script>
 
@@ -29,6 +30,8 @@
 		var formData = new FormData();
 		formData.append('jp2ToValidate', document
 				.getElementById('jp2ToValidate').files[0]);
+		formData.append('jp2ToValidateFromUrl', document
+				.getElementById('jp2ToValidateFromUrl').value);
 		var submitTo = 'check.php';
 		http_uploadBinaries('POST', submitTo, ajax_response, formData);
 	}
@@ -42,6 +45,9 @@
 		resetResults();
 		document.getElementById("content").innerHTML = data;
 	}
+    function resetUrl() {
+		document.getElementById('jp2ToValidateFromUrl').value = "";
+    }
 </script>
 </head>
 
@@ -63,9 +69,13 @@
 		<form name="analyze_form" id="analyze_form" action="check.php"
 			method="post" enctype="multipart/form-data">
 			<div class="input-button">
-				<label for="jp2ToValidate">Select JP2 file for Jpylyzer
-					validation.</label><br /> <input type="file" name="jp2ToValidate"
-					id="jp2ToValidate">
+				<label for="jp2ToValidate">Select JP2 file for Jpylyzer validation.</label><br />
+                <input type="file" name="jp2ToValidate" id="jp2ToValidate" onchange="resetUrl()">
+			</div>
+			<div class="input-button">
+				<label for="jp2ToValidate">OR copy and paste the url of a JP2 file for Jpylyzer validation.</label><br />
+                <!-- TODO: reset file!! -->
+                <input type="url" name="jp2ToValidateFromUrl" id="jp2ToValidateFromUrl">
 			</div>
 			<br />
 
