@@ -2,7 +2,7 @@
 
 ##
 # Bash script to provision VM, used to set up test environment.
-# The is the correct home for one time builds/installations 
+# The is the correct home for one time builds/installations
 # required to set up the demonstrators.
 #
 # Be aware this script is only the first time you issue the
@@ -16,16 +16,16 @@
 echo "install scape demo tools ..."
 
 # Add openplanets Bintray deb repo and udate apt repos
-#echo "deb http://dl.bintray.com/openplanets/opf-debian /" >> /etc/apt/sources.list 
+echo "deb http://dl.bintray.com/openplanets/opf-debian /" >> /etc/apt/sources.list
 apt-get update
 
 # Install apache 2, Python module, PHP 5 and java runtime 7 for demo site
 apt-get install -y apache2 php5 libapache2-mod-php5 libapache2-mod-python openjdk-7-jre-headless
 
 
-# Install firefox and Java for pagelyzer 
+# Install firefox and Java for pagelyzer
 #apt-get install -y firefox openjdk-7-jre-headless
-#  Install fonts and xvfb for for virtual X window 
+#  Install fonts and xvfb for for virtual X window
 #apt-get install -y xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic xvfb x11-apps  imagemagick
 
 # Restart apache and link www root to the vagrant shared dir
@@ -38,6 +38,9 @@ ln -fs /vagrant /var/www
 # Copy the FLint Jar to /var/lib/flint -- TODO: debian-package flint
 mkdir -p /var/lib/flint
 cp /vagrant/lib/flint.jar /var/lib/flint
+
+# Download and install jpylyzer package
+apt-get install -y --force-yes jpylyzer
 
 ###
 # Install matchbox
@@ -53,8 +56,8 @@ sudo apt-get install -y libboost-all-dev zlib1g-dev libjpeg8-dev libpng12-dev li
 echo "copy matchbox debian package."
 wget -q -O scape-matchbox_1.0.0_incl_libs.deb "http://dl.bintray.com/ait/ait-repository/scape-matchbox_1.0.0_incl_libs.deb"
 
-# Install tools for downloading matchbox sources 
-apt-get install -y git 
+# Install tools for downloading matchbox sources
+apt-get install -y git
 
 # Install matchbox package
 echo "install matchbox debian package..."
@@ -89,7 +92,7 @@ echo "create links to the matchbox Python scripts..."
 mkdir -p /usr/lib/python2.7/dist-packages/matchbox
 ln -fs /usr/share/pyshared/matchbox/FindDuplicates.py /usr/lib/python2.7/dist-packages/matchbox/FindDuplicates.py
 ln -fs /usr/share/pyshared/matchbox/CompareCollections.py /usr/lib/python2.7/dist-packages/matchbox/CompareCollections.py
-ln -fs /usr/share/pyshared/matchbox/MatchboxLib.py /usr/lib/python2.7/dist-packages/matchbox/MatchboxLib.py 
+ln -fs /usr/share/pyshared/matchbox/MatchboxLib.py /usr/lib/python2.7/dist-packages/matchbox/MatchboxLib.py
 
 # Create sym-links for the commands for now
 ln -fs /usr/share/pyshared/matchbox/FindDuplicates.py /usr/bin/FindDuplicates
