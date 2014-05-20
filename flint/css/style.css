@@ -1,0 +1,24 @@
+input#flintValidateFromUrl {
+    color: black;
+    width: 100%;
+}
+#content.result-title {
+    text-align: left;
+}
+ul.output {
+    margin: 10px 30px;
+}
+
+ul.check-result {
+    margin: 10px 0px 10px 50px;
+    list-style: square;
+}
+ul.check-result li {
+    font-size: 75%;
+}
+li.failed {
+    color: red;
+}
+li.happy {
+    color: #aaa;
+}

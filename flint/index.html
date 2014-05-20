@@ -1,0 +1,103 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Demonstration of pdf file/format validation</title>
+<link rel="stylesheet" href="/StyleJS/css/style.css">
+<link rel="stylesheet" href="/flint/css/style.css">
+
+<script src="/StyleJS/ajax.js"></script>
+
+<script>
+	function resetForm() {
+		document.getElementById('analyze_form').reset();
+		resetResults();
+	}
+
+	function resetResults() {
+		document.getElementById("progressBar").className = "";
+		document.getElementById("progressBar").innerHTML = "";
+	}
+
+	/**Ajax Request (Submits the form below through AJAX
+	 *               and then calls the ajax_response function)
+	 */
+	function ajax_request() {
+		document.getElementById("progressBar").className = "spinner";
+		document.getElementById("content").innerHTML = "Processing...";
+
+		var formData = new FormData();
+		formData.append('flintValidate',
+                document.getElementById('flintValidate').files[0]);
+		formData.append('flintValidateFromUrl', document
+				.getElementById('flintValidateFromUrl').value);
+		var submitTo = 'check.php';
+		http_uploadBinaries('POST', submitTo, ajax_response, formData);
+	}
+
+	/**Ajax Response (Called when ajax data has been retrieved)
+	 *
+	 * @param   object  data   Javascript (JSON) data object received
+	 *                         through ajax call
+	 */
+	function ajax_response(data) {
+		resetResults();
+		document.getElementById("content").innerHTML = data;
+	}
+    function resetUrl() {
+		document.getElementById('flintValidateFromUrl').value = "";
+    }
+</script>
+</head>
+
+<body>
+
+	<div id="scape" class="sign-up">
+		<table>
+			<tr>
+				<td width="50%"><img src="/images/logo.png" /></td>
+				<td width="50%">
+					<h1 class="sign-up-title">Demonstration of FLint - a modular File/Format
+						validator</h1>
+				</td>
+			</tr>
+		</table>
+
+		<br /> <br />
+
+		<form name="analyze_form" id="analyze_form" action="check.php"
+			method="post" enctype="multipart/form-data">
+			<div class="input-button">
+				<label for="flintValidate">Select a pdf file for validation</label><br />
+                <input type="file" name="flintValidate" id="flintValidate" onchange="resetUrl()">
+			</div>
+			<div class="input-button">
+				<label for="flintValidateFromUrl">OR copy and paste the url to a PDF file for validation</label><br />
+                <input type="url" name="flintValidateFromUrl" id="flintValidateFromUrl" onclick="resetForm()">
+			</div>
+
+			<div class="buttonHolder">
+				<input type="button" class="sign-up-button" onclick="ajax_request()" value="Lint the File">
+			</div>
+
+			<hr>
+
+			<div>
+			    <div id="content" class="result-title"></div>
+                <div id="progressBar"></div>
+			</div>
+		</form>
+
+	</div>
+	<div id="links" class="sign-up">
+		<h1 class="sign-up-title">Related Links</h1>
+		<ul class="list">
+			<li><a href="https://github.com/bl-dpt/flint">FLint on GitHub</a></li>
+			<li><a
+				href="#">TODO: add link to future blogpost</a></li>
+			<li>For any question or further information, please contact william.palmer@bl.uk or alecs.geuder@bl.uk</li>
+		</ul>
+	</div>
+
+</body>
+</html>

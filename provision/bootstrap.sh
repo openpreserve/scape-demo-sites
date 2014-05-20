@@ -34,6 +34,10 @@ apt-get install -y apache2 php5 libapache2-mod-php5 libapache2-mod-python
 rm -rf /var/www
 ln -fs /vagrant /var/www
 
+# Copy the FLint Jar to /var/lib/flint -- TODO: debian-package flint
+mkdir -p /var/lib/flint
+cp /vagrant/lib/flint.jar /var/lib/flint
+
 ###
 # Install matchbox
 ###
