@@ -1,23 +1,27 @@
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Demonstration of JP2 validation — a jpylyzer tool</title>
-<link rel="stylesheet" href="/StyleJS/css/style.css">
-<link rel="stylesheet" href="/jpylyzer/style.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Demonstration of JP2 validation — a jpylyzer tool</title>
 
-<script src="/StyleJS/ajax.js"></script>
+  <link rel="stylesheet" href="/StyleJS/css/style.css">
+  <link rel="stylesheet" href="/jpylyzer/css/style.css">
+  <link rel="stylesheet" href="/jpylyzer/css/jstree/style.css">
+  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="/jpylyzer/js/jstree.min.js"></script>
+  <script src="/StyleJS/ajax.js"></script>
+  <script src="/jpylyzer/js/resultTree.js"></script>
 
 <script>
 	function resetForm() {
 		document.getElementById('analyze_form').reset();
-		resetResults();
 	}
 
 	function resetResults() {
-		document.getElementById("content").innerHTML = "";
 		document.getElementById("progressBar").className = "";
 		document.getElementById("progressBar").innerHTML = "";
+        jpylyzerResultTree.tidyUp("#content");
 	}
 
 	/**Ajax Request (Submits the form below through AJAX
@@ -44,6 +48,8 @@
 	function ajax_response(data) {
 		resetResults();
 		document.getElementById("content").innerHTML = data;
+        jpylyzerResultTree.arrangeTree("#content");
+        document.getElementById('content').scrollIntoView();
 	}
     function resetUrl() {
 		document.getElementById('jp2ToValidateFromUrl').value = "";
@@ -58,7 +64,7 @@
 			<tr>
 				<td width="50%"><img src="/images/logo.png" /></td>
 				<td width="50%">
-					<h1 class="sign-up-title">Demonstration of Jpylyzer — a JP2
+					<h1 class="sign-up-title">Demonstration of Jpylyzer - a JP2
 						validator and properties extractor</h1>
 				</td>
 			</tr>
@@ -73,37 +79,20 @@
                 <input type="file" name="jp2ToValidate" id="jp2ToValidate" onchange="resetUrl()">
 			</div>
 			<div class="input-button">
-				<label for="jp2ToValidate">OR copy and paste the url of a JP2 file for Jpylyzer validation.</label><br />
-                <!-- TODO: reset file!! -->
-                <input type="url" name="jp2ToValidateFromUrl" id="jp2ToValidateFromUrl">
+				<label for="jp2ToValidateFromUrl">OR copy and paste the url of a JP2 file for Jpylyzer validation.</label><br />
+                <input type="url" name="jp2ToValidateFromUrl" id="jp2ToValidateFromUrl" onclick="resetForm()">
 			</div>
-			<br />
 
 			<div class="buttonHolder">
-				<input type="button" class="sign-up-button" onclick="ajax_request()"
-					value="Validate JP2K File"> <input type="button"
-					class="reset-button" onclick="resetForm()" value="Reset">
+				<input type="button" class="sign-up-button" onclick="ajax_request()" value="Validate JP2K File">
 			</div>
-
-			<br />
-			<ul class="list">
-				<li>This demonstration tests Jpylyzer functionality, but not
-					performance which is affected by network bandwidth and server load.</li>
-			</ul>
-			<br />
 
 			<hr>
 
-			<table>
-				<tr>
-					<td width="50%">
-						<div id="content" class="result-title"></div>
-					</td>
-					<td width="50%">
-						<div id="progressBar"></div>
-					</td>
-				</tr>
-			</table>
+            <div>
+                <div id="content" class="result-title"></div>
+                <div id="progressBar"></div>
+            </div>
 		</form>
 
 	</div>

@@ -1,0 +1,25 @@
+input#jp2ToValidateFromUrl {
+    color: black;
+    width: 100%;
+}
+#content.result-title {
+    text-align: left;
+    margin: 10px;
+}
+span.check-results {
+    font-size: 16px;
+}
+
+ul {
+    font-size: 12px;
+    color: #333333;
+}
+span.elem-value {
+    color: #18009E
+}
+span.failed {
+    color: red;
+}
+li.happy {
+    color: #aaa;
+}
