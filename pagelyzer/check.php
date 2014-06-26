@@ -1,9 +1,11 @@
  <?php
 
+require_once "../StyleJS/json/JSON.php";
+$json = new Services_JSON();
+
 $url1 = $_GET["url1"];
 $url2 =  $_GET["url2"];
 $type = $_GET["type"];
-$pagelyze="DISPLAY=:98 java -jar  /var/lib/pagelyzer/jPagelyzer.jar -get score -cmode ";
 
 
 $descriptorspec = array(
@@ -14,24 +16,30 @@ $descriptorspec = array(
 
 if($type == 1)
 {
-	$cmd = $pagelyze."images -url1 ".$url1." -url2 ".$url2." 2>&1";
+	$config="config_image.xml";
 }
 elseif($type == 2)
 {
-	$cmd = $pagelyze."structure -url1 ".$url1." -url2 ".$url2." 2>&1";
+	$config="config_content.xml";
 }
 else
 {
-	$cmd = $pagelyze."hybrid -url1 ".$url1." -url2 ".$url2." 2>&1";
+	$config="config_hybrid.xml";
 }
+$cmd = "java -jar  Pagelyzer-0.0.1-SNAPSHOT-jar-with-dependencies.jar -url1 ".$url1." -url2 ".$url2." -config ".$config." 2>&1";
 
 $p=proc_open ($cmd, $descriptorspec, $pipes);
 
 $out = stream_get_contents($pipes[1]) ;
-$out2 = json_encode($out);
+$out2 = $json->encode($out);
 $parts = explode('\n', $out2);
-$result = json_encode($parts[sizeof($parts)-2]);
-print($result);
+$output = array();
+for ($i = 1; $i < sizeof($parts); $i++) {
+    $output[] = $json->encode($parts[$i]);
+	
+}
+echo json_encode($output);
+
 proc_close($p);
 ?>
 
