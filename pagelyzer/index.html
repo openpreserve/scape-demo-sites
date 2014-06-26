@@ -1,184 +1,401 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Demo Pagelyzer</title>
-<link rel="stylesheet" href="/StyleJS/css/style.css">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Demo Pagelyzer</title>
+  <link rel="stylesheet" href="../StyleJS/css/style.css">
 
-<script src="/StyleJS/ajax.js"></script>
+<script src="../StyleJS/ajax.js"></script>
 
 <script>
-	/**Ajax Request (Submits the form below through AJAX
-	 *               and then calls the ajax_response function)
-	 */
+var PATH = "http://scape.lip6.fr/scape-demo-sites/tmp/";
+var type=1;
+var svm=0; // if the score is calculated without using svm it is 0
 
-	function resetForm() {
-		document.getElementById('form1').reset();
-		resetResults();
+/*
+START : Functions to reset the API for a new request
+*/
+function resetForm(){
+    	document.getElementById('form1').reset();
+	resetResults();
+	 
+}
 
+function resetResults()
+{
+	svm=0;
+	document.getElementById("scoremessage").innerHTML="";
+
+	document.getElementById("progressBar").className="";
+
+	document.getElementById("imagetable").style.display = 'none';
+	document.getElementById("image").innerHTML="" ;
+	document.getElementById("contenttable").style.display = 'none';
+	document.getElementById("content").innerHTML="" ;
+	document.getElementById("vector").innerHTML="" ;
+	document.getElementById("progressBar").innerHTML="";
+	document.getElementById("calculate").innerHTML="" ;
+	stepcounter = 0;
+}
+
+/*
+END : Functions to reset the API for a new request
+*/
+
+
+
+/*
+START : Utils scripts 
+*/
+if (typeof String.prototype.startsWith != 'function') {
+  // see below for better implementation!
+  String.prototype.startsWith = function (str){
+    return this.indexOf(str) == 0;
+  };
+}
+/*
+END : Utils scripts 
+*/
+
+
+
+/**Ajax Request (Submits the form below through AJAX
+ *               and then calls the ajax_response function)
+ */
+
+function ajax_request() {
+
+	resetResults(); // calling reset first to clean previsous results if exists
+
+	document.getElementById("progressBar").className="spinner";
+	var url1 = document.getElementById("url1").value;//by id
+	var url2 = document.getElementById("url2").value;//by id
+	
+	// Getting comparaison type
+	
+	var radios = document.getElementsByTagName('input');
+	for (var i = 0; i < radios.length; i++) {
+	    if (radios[i].type === 'radio' && radios[i].checked) {
+		type = radios[i].value;       
+	    }
 	}
+	// Calling php
+	var submitTo = './check.php?url1=' +encodeURIComponent(url1) + "&url2=" + encodeURIComponent(url2)+"&type="+type;
+	http('POST', submitTo, ajax_response, document.form1);
 
-	function resetResults() {
-		document.getElementById("content").innerHTML = "";
+}
 
-		document.getElementById("progressBar").className = "";
 
-		document.getElementById("progressBar").innerHTML = "";
+
+/**Ajax Response (Called when ajax data has been retrieved)
+ *
+ * @param   object  data   Javascript (JSON) data object received
+ *                         through ajax call
+ */
+
+function ajax_response(data) {
+
+	var res ="";
+        var score="";
+        var timestamp = "";
+	var isvector = 0;
+
+
+	// FOR loop to parse php result it is something like this:
+	  /*
+	  ["\"Setting up browser: firefox\"","\"Attempt = 1\"","\"getting data using driver: firefox\"","\"title: Accueil LIP6\"","\"Screenshot: 3509\"","\"Using BoM algorithm v1.1 pAC=5\"","\"Segmentation: 3952\"","\"Capture 1 : 10202\"","\"Setting up browser: firefox\"","\"Attempt = 1\"","\"getting data using driver: firefox\"","\"title: Benjamin Piwowarski's website\"","\"Screenshot: 3987\"","\"Using BoM algorithm v1.1 pAC=5\"","\"Segmentation: 3431\"","\"Capture 2 : 9417\"","\"Distance between the two web-pages:: -1.0\"","\"path:\\\\\\\/home\\\\\\\/scape\\\\\\\/public_html\\\\\\\/scape-demo-sites\\\\\\\/tmp\\\\\\\/\\\\\\\/page1403714714877_1.png_segmentation\"","\"path:\\\\\\\/home\\\\\\\/scape\\\\\\\/public_html\\\\\\\/scape-demo-sites\\\\\\\/tmp\\\\\\\/\\\\\\\/page1403714714877_1.png\"","\"path:\\\\\\\/home\\\\\\\/scape\\\\\\\/public_html\\\\\\\/scape-demo-sites\\\\\\\/tmp\\\\\\\/\\\\\\\/page1403714714877_2.png_segmentation\"","\"path:\\\\\\\/home\\\\\\\/scape\\\\\\\/public_html\\\\\\\/scape-demo-sites\\\\\\\/tmp\\\\\\\/\\\\\\\/page1403714714877_2.png\"","\"timestamp:1403714714877\"","\"\\\"\""] 
+	  */
+        for(var key in data) {
+
+	  
+            if(data[key].startsWith("\"Distance"))
+            {
+                res = data[key].split("::");
+                score = res[1].substring(0, res[1].length - 1); // getting score 
+		isvector= 0;
+            }
+            else if(data[key].startsWith("\"timestamp")) // getting timestamp to find images to display it is used as image id
+            {
+                res = data[key].split(":");
+                timestamp = res[1].substring(0, res[1].length - 1);
+            }
+
+	    if(isvector==1) // The vector values are between Capture 2 .... and Distance so try to get the values between these two strings
+	    {
+		    document.getElementById("vector").innerHTML+=data[key]+"<br />";
+		    svm=1; // if SVM is not used jar will not return any vector information we need to keep its trace to display vector information
+	    }
+	    if(data[key].startsWith("\"Capture 2"))
+	    {
+		    isvector= 1;
+	    }
+
+        }
+
+
+	if(type == 1)
+	{
+	    setTimeout(function() {updateAPI(1,score,timestamp);}, 2000); // image 
 	}
-
-	function ajax_request() {
-
-		resetResults();
-
-		document.getElementById("progressBar").className = "spinner";
-		var url1 = document.getElementById("url1").value;//by id
-		var url2 = document.getElementById("url2").value;//by id
-		var type = 1;
-
-		var radios = document.getElementsByTagName('input');
-		for (var i = 0; i < radios.length; i++) {
-			if (radios[i].type === 'radio' && radios[i].checked) {
-				type = radios[i].value;
-			}
-		}
-
-		var submitTo = './check.php?url1=' + encodeURIComponent(url1)
-				+ "&url2=" + encodeURIComponent(url2) + "&type=" + type;
-		http('POST', submitTo, ajax_response, document.form1);
-
+	else if(type == 2)
+        {
+	    setTimeout( function() {updateAPI(2,score,timestamp);}, 2000); // content
 	}
-
-	/**Ajax Response (Called when ajax data has been retrieved)
-	 *
-	 * @param   object  data   Javascript (JSON) data object received
-	 *                         through ajax call
-	 */
-	function ajax_response(data) {
-
-		var score = "";
-		for ( var key in data) {
-			score += data[key];
-		}
-
-		var res = score.split("::");
-		score = res[1].substring(0, res[1].length - 1);
-		//document.getElementById("content").innerHTML = "Score: " + parseFloat(score).toFixed(2);
-
-		if (parseFloat(score) > 0) {
-			document.getElementById("progressBar").className = "OK";
-			document.getElementById("content").innerHTML = "SIMILAR";
-
-		} else {
-			document.getElementById("progressBar").className = "NOTOK";
-			document.getElementById("content").innerHTML = "DISSIMILAR";
-		}
+	else if(type == 3)
+        {
+	     setTimeout(function() { updateAPI(1,score,timestamp);}, 2000); // image 
+	     setTimeout( function() {updateAPI(2,score,timestamp);}, 4000); // content
 	}
+	
+        setTimeout(function() { updateAPI(3,score,timestamp);}, 6000); // vector 
+       
+	setTimeout(function() { updateAPI(4,score,timestamp);}, 8000); // vector based calculation
+
+        setTimeout(function() { updateAPI(5,score,timestamp);}, 10000); // score
+
+}
+
+
+
+
+function updateAPI(activationtype, score,timestamp ) 
+{
+	 if(activationtype == 1)
+	  {
+	   
+		  document.getElementById("image").innerHTML = "STEP : Getting screenshot of Urls";
+		  document.getElementById("image").style.display = 'block';
+		  document.getElementById("imagetable").style.display = 'block';
+	  
+		  document.getElementById("url1image").src=PATH + "page"+timestamp+"_1.png";
+		  document.getElementById("url2image").src=PATH + "page"+timestamp+"_2.png";
+
+		  window.location.hash = '#image';
+	      
+	  }
+	  else if(activationtype == 2)
+	  {
+	    
+    
+		  document.getElementById("content").innerHTML = "STEP : Segmenting web pages ";
+		  document.getElementById("content").style.display = 'block';
+		  document.getElementById("contenttable").style.display = 'block';
+		  document.getElementById("url1imageseg").src=PATH + "page"+timestamp+"_1.png_segmentation";
+		  document.getElementById("url2imageseg").src=PATH + "page"+timestamp+"_2.png_segmentation";
+
+
+		  document.getElementById("vixml1").src=PATH + "page"+timestamp+"_1.png.xml";
+		  document.getElementById("vixml2").src=PATH + "page"+timestamp+"_2.png.xml";
+
+		  window.location.hash = '#content';
+	     
+	  }
+	  else if(activationtype == 3)
+	  {
+		 document.getElementById("vector").style.display = 'block';
+		 if(svm=1) // empty because no needd to calculate vector block structures are so different that we decide directly two pages are dissimilar
+		 {
+			document.getElementById("vector").innerHTML = "STEP: Construct Vector of similarities for two Urls and find its place according to hyperlane <br /> <hr>"  +document.getElementById("vector").innerHTML + "<hr>";
+		 }
+		 else
+		 {
+		      document.getElementById("vector").innerHTML = "STEP: Construct Vector of similarities for two Urls and find its place according to hyperlane <br /> <hr> No vector needed because two pages block structures are completely different so we decide directly two pages are dissimilar <hr>";
+		 }
+	         window.location.hash = '#vector';
+
+	  }
+	  else if(activationtype == 4)
+	  {
+	    if(svm=1) 
+	    {
+   
+	      document.getElementById("calculate").style.display = 'block';
+	      document.getElementById("calculate").innerHTML = "STEP: Calculating score based on the vector  <br />";
+	      window.location.hash = '#calculate';
+	    }
+	   
+	}
+	else if(activationtype == 5)
+	{
+
+	     if(parseFloat(score) > 0)
+	      {
+			document.getElementById("progressBar").className="OK";
+			document.getElementById("scoremessage").innerHTML +="  SIMILAR";
+
+	      }
+	      else{
+			document.getElementById("progressBar").className="NOTOK";
+			document.getElementById("scoremessage").innerHTML+="  DISSIMILAR";
+	      }
+	      document.getElementById("scoremessage").innerHTML+=" <br/> Score : " + score;
+	      window.location.hash = '#scoremessage';
+	}
+}
+
 </script>
 
 
 </head>
 <body>
-
+	
 	<div id="scape" class="sign-up">
-		<table width="100%">
-			<tr>
-				<td width="50%"><img src="/images/logo.png" /></td>
-				<td width="50%">
-					<h1 class="sign-up-title">Pagelyzer Demonstration - Detect
-						differences in web pages.</h1>
-				</td>
+	<table width="100%">
+    	<tr>
+        <td width="50%">
+        <img src="http://www.alliancepermanentaccess.org/wp-content/uploads/2012/09/SCAPE_Logo_Large_with_Tagline_png-300x114.jpg"/>
+        </td>
+         <td width="50%">
+        	 <h1 class="sign-up-title">Demo of Pagelyzer</h1>
+        </td>
+		
+    </tr>
+	</table>
 
-			</tr>
-		</table>
+	
+	
+<br/>
+<br/>
+<br/>
+<br/>
+	
+<div class="wrapper">
+	<ul>
+	  <li  style="list-style:none;">
+	    <input type="radio" name="custom_type" value="1" class="styled" checked=true />
+	    Image Based
+	    <input type="radio" name="custom_type"  value="2" id="custom_venuetype_private" class="styled" />
+	    Content Based
+	    <input type="radio" name="custom_type"  value="3" id="custom_venuetype_private" class="styled" />
+	    Hybrid
+	  </li>
+	</ul>
+</div>
 
+	
+<br/>
+<br/>
+<br/>
+<br/>
+	
+  <form name="form1" id="form1" >
+	<table width="100%">
+    <tr>
+        <td>
+        	 <input type="text" id="url1" class="sign-up-input" placeholder="First Url" onkeypress="resetResults()">
+        </td>
+        <td>
+        	 <input type="text"  id="url2" class="sign-up-input" placeholder="Second Url" onkeypress="resetResults()">
+        </td>
+		
+    </tr>
+	</table>
+	
+	
+		<div class="buttonHolder">
+		 <input type="button"  class="sign-up-button"  onclick="ajax_request()" value="Let's Compare">
+  
+	  	<input type="button"  class="reset-button"  onclick="resetForm()" value="Reset"><br><br>
+		
+		
+	
+		</div>	
 
+ 
+  
+* Please enter valid Urls <p/>
+* This demo uses js injection for Content based and Hybrid <p/>
+  thus it won't work for web pages that do not let js injection like google.com <p/>
+* Remember that this demo aims to test the correctness of the tool, not the performance.
+  <hr>
 
-		<br /> <br /> <br /> <br />
+<div id="image" class="sign-up-title" style="display:none">
+  <hr>
+</div>
 
-		<div class="wrapper">
-			<ul>
-				<li style="list-style: none;"><input type="radio"
-					name="custom_type" value="1" class="styled" checked=true /> Image
-					Based <input type="radio" name="custom_type" value="2"
-					id="custom_venuetype_private" class="styled" /> Content Based <input
-					type="radio" name="custom_type" value="3"
-					id="custom_venuetype_private" class="styled" /> Hybrid</li>
-			</ul>
-		</div>
+<div id="imagetable" style="display:none">
+  <hr>
+<table width="100%">
+    	<tr>
+        	<td width="50%">
+        	 	<img id="url1image" height="400" width="350"/> 
+       		</td>
+         	<td width="50%">
+        	 	<img id="url2image"  height="400" width="350"/>
+        	</td>
+		
+    	</tr>
+</table>
+<hr>
+</div>
+<div id="content" class="sign-up-title" style="display:none">
 
+</div>
+<div id="contenttable" class="sign-up-title" style="display:none">
+  <hr>
+<table width="100%">
+    	<tr>
+        	<td width="50%">
+        	 	<img id="url1imageseg" height="400" width="350"/> 
+       		</td>
+		
+         	<td width="50%">
+        	 	<img id="url2imageseg"  height="400" width="350"/>
+        	</td>
+	      
+		
+    	</tr>
+	<tr>
+	      <td width="50%">
+        	 	<iframe id="vixml1" height="400" width="350">
+			</iframe>
+       		</td>
+	     <td width="50%">
+        	 	<iframe id="vixml2" height="400" width="350">
+			</iframe>
+       		</td>
+	</tr>
+</table>
+<hr>
+</div>
+<div id="vector" class="sign-up-title" style="display:none" >
 
-		<br /> <br /> <br /> <br />
+</div>
+<div id="calculate" class="sign-up-title" style="display:none" >
 
-		<form name="form1" id="form1">
-			<table width="100%">
-				<tr>
-					<td><input type="text" id="url1" class="sign-up-input"
-						placeholder="First Url" onkeypress="resetResults()"></td>
-					<td><input type="text" id="url2" class="sign-up-input"
-						placeholder="Second Url" onkeypress="resetResults()"></td>
+</div>
 
-				</tr>
-			</table>
+<hr>
+	<table width="100%">
+    	<tr>
+        	<td>
+        	 	<div id="progressBar"> </div>
+       		</td>
+	</tr><tr>
+         	<td>
+        	 	<div id="scoremessage"  class="result-title"></div>
+        	</td>
+		
+    	</tr>
+	</table>
 
-
-			<div class="buttonHolder">
-				<input type="button" class="sign-up-button" onclick="ajax_request()"
-					value="Compare Web Pages"> <input type="button"
-					class="reset-button" onclick="resetForm()" value="Reset"><br>
-				<br>
-
-
-
-			</div>
-
-
-			<ul class="list">
-				<li>Please enter valid Urls for analysis.</li>
-				<li>This demo uses js injection for Content based and Hybrid
-					analysis, and it can't test pages that prevent injection, e.g.
-					google.com.</li>
-				<li>This demonstration tests Pagelyzer functionality, but not
-					performance which is affected by network bandwidth and server load.</li>
-			</ul>
-			<hr>
-			<table width="100%">
-				<tr>
-					<td width="10%">
-						<div id="progressBar"></div>
-					</td>
-					<td width="20%">
-						<div id="content" class="result-title"></div>
-					</td>
-
-				</tr>
-			</table>
-
-		</form>
-
-	</div>
-
-	<div id="links" class="sign-up">
-		<h1 class="sign-up-title">Related Links</h1>
-		<ul class="list">
-			<li>Pagelyzer at Wiki <a
-				href="http://wiki.opf-labs.org/display/TR/Pagelyzer">here</a>
-			</li>
-			<li>Pagelyzer at Github <a
-				href="https://github.com/openplanets/pagelyzer"> here </a></li>
-			<li>Pagelyzer blog post: coming soon</li>
-			<li>MarcAlizer (supervised framework in Pagelyzer) at Github <a
-				href="https://github.com/lechervy/MarcAlizer/"> here </a></li>
-			<li>Pagelyzer scability test results (image based) by IMF <a
-				href="http://www.openplanetsfoundation.org/blogs/2013-07-26-browser-screenshot-comparison-tool">
-					here </a></li>
-			<li>For any question or further information please contact to
-				zeynep.pehlivan@lip6.fr or marc.law@lip6.fr or andres.sanoja@lip6.fr</a>
-			</li>
-		</ul>
-	</div>
-
-
->>>>>>> utd
+</form>
+		
+</div>	
+		
+<div id="links" class="sign-up">
+	 <h1 class="sign-up-title">Related Links</h1>
+	 <ul class="list">
+  <li> Pagelyzer at Wiki <a href="http://wiki.opf-labs.org/display/TR/Pagelyzer">here</a> </li>
+  <li> Pagelyzer at Github <a href="https://github.com/openplanets/pagelyzer"> here </a></li>
+  <li> Pagelyzer blog post: coming soon</li>
+  <li> MarcAlizer (supervised framework in Pagelyzer) at Github <a href="https://github.com/lechervy/MarcAlizer/"> here </a></li>
+  <li> Pagelyzer scability test results (image based) by IMF  <a href="http://www.openplanetsfoundation.org/blogs/2013-07-26-browser-screenshot-comparison-tool"> here </a></li>
+  <li> For any question or further information please contact to zeynep.pehlivan@lip6.fr or marc.law@lip6.fr or andres.sanoja@lip6.fr</a></li>
+</ul> 
+</div>
+	
+		
 
 </body>
 </html>
