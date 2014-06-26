@@ -1,7 +1,7 @@
  <?php
 
 
-echo exec("ps aux | grep -ie jPage | awk '{print $2}' | xargs kill -9");
+echo exec("ps aux | grep -ie Pagelyzer | awk '{print $2}' | xargs kill -9");
 
 
 ?>
