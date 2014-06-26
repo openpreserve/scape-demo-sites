@@ -26,6 +26,8 @@ else
 {
 	$config="config_hybrid.xml";
 }
+
+// If you do not want to popup windows you should create a display with Xvfb and call jar with DISPLAY:=1 
 $cmd = "java -jar  Pagelyzer-0.0.1-SNAPSHOT-jar-with-dependencies.jar -url1 ".$url1." -url2 ".$url2." -config ".$config." 2>&1";
 
 $p=proc_open ($cmd, $descriptorspec, $pipes);
