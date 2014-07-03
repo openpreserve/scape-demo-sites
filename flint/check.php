@@ -48,7 +48,7 @@
         //$handler->debug("file temporarily saved under " . $myFile);
     }
 
-    $command = "java -jar /var/lib/flint/flint.jar " . escapeshellarg($myFile) . " --output " . $outputDir;
+    $command = "java -jar /home/vagrant/flint/flint.jar " . escapeshellarg($myFile) . " --output " . $outputDir;
 
     //$handler->debug("running flint with command: " . $command);
 
