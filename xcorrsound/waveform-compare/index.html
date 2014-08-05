@@ -21,7 +21,12 @@
         </tr>
     </table>
 
-    <br/> <br/> <br/>
+    <br/>
+
+    Waveform-compare compares two audio files and outputs the similarity.
+    The tool can be used in quality assurance.
+
+    <br/> <br/>
 
     <form name="compare_form" id="compare_form" action="../xcorrsound.php" method="post" enctype="multipart/form-data">
 
@@ -59,6 +64,8 @@
             </tr>
         </table>
         <br/>
+        <br/>
+        <br/>
 
         <div class="buttonHolder">
             <input type="button" class="sign-up-button" onclick="ajax_request('waveform-compare')"
@@ -82,19 +89,15 @@
         </table>
     </form>
     <br/>
-    Waveform-compare compares two audio files and outputs the similarity.
-    The tool can be used in quality assurance.
-    <br/>
-    The tool outputs "success" or "failure", depending on similarity for the best match (default threshold is 0.98),
-    as well as offset (in microseconds?) and similarity (between 0 and 1) for best match, and in case of failure the block
-    where the failure occurred.
-    <br/>
-    For more on algorithm and output, see <a href="http://openplanets.github.io/scape-xcorrsound/">the xcorrSound web site</a>.
-    <br/>
     <ul class="list">
         <li>This tests xcorrsound functionality, but not performance which is affected by network bandwidth and
             server load.
         </li>
+        <li>The tool outputs "success" or "failure", depending on similarity for the best match (default threshold is 0.98),
+            as well as offset and similarity (between 0 and 1) for best match, and in case of failure the block
+            where the failure occurred.
+        </li>
+        <li>For more on algorithm and output, see <a href="http://openplanets.github.io/scape-xcorrsound/">the xcorrSound web site</a>.</li>
         <li>The samples are derived from "Test Drive by Zapac [Attribution Noncommercial (3.0)]" from ccMixter.org.
             ccMixter is a community music site featuring remixes licensed under Creative Commons.
             <a href="http://ccmixter.org/files/Zapac/26047">ccmixter.org/files/Zapac/26047</a>

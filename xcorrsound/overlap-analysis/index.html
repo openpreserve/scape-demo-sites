@@ -40,7 +40,7 @@
                         <br/>
                         <select name="demo_select_1" id="demo_select_1" onchange="reset_file_select_1()">
                             <option value="">No selection...</option>
-                            <option selected value="/vagrant/xcorrsound/sample/0-60.wav">0-60 seconds</option>
+                            <option selected value="/vagrant/xcorrsound/sample/freestylemix_-_hisboyelroy_-_Revolve_beginning.wav">freestylemix_-_hisboyelroy_-_Revolve_beginning.wav</option>
                         </select>
                         <br/><br/>
                         <input type="file" name="file_select_1" id="file_select_1" onchange="reset_demo_select_1()">
@@ -52,7 +52,7 @@
                         <br/>
                         <select name="demo_select_2" id="demo_select_2" onchange="reset_file_select_2()">
                             <option value="">No selection...</option>
-                            <option selected value="/vagrant/xcorrsound/sample/45-100.wav">45-100 seconds</option>
+                            <option selected value="/vagrant/xcorrsound/sample/freestylemix_-_hisboyelroy_-_Revolve_end.wav">freestylemix_-_hisboyelroy_-_Revolve_end.wav</option>
                         </select>
                         <br/><br/>
                         <input type="file" name="file_select_2" id="file_select_2" onchange="reset_demo_select_2()">
@@ -60,6 +60,7 @@
                 </td>
             </tr>
         </table>
+        <br/>
         <br/>
         <br/>
 
@@ -73,9 +74,12 @@
             <li>This tests xcorrsound functionality, but not performance which is affected by network bandwidth and
                 server load.
             </li>
-            <li>It produces an offset in seconds and a match quality value</li>
-            <li>The closer to 1 the value is the more reliable the match is.</li>
-            <li>The offset tells you how many seconds of audio is duplicated, ie. exist both in the end of the first file and the start of the second file</li>
+            <li>The tool outputs an offset in seconds and a match quality value. The closer to 1 the value is the more reliable the match is.
+                The offset tells you how many seconds into the first audio file, the second audio file should be shifted to get the best match.</li>
+            <li>The samples are derived from "Revolve by hisboyelroy [Noncommercial Sampling Plus]" from ccMixter.org.
+                ccMixter is a community music site featuring remixes licensed under Creative Commons.
+                <a href="http://ccmixter.org/files/hisboyelroy/430">ccmixter.org/files/hisboyelroy/430</a>
+            </li>
         </ul>
         <br/>
 
