@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -75,16 +76,16 @@
 		<form name="analyze_form" id="analyze_form" action="check.php"
 			method="post" enctype="multipart/form-data">
 			<div class="input-button">
-				<label for="jp2ToValidate">Select JP2 file for Jpylyzer validation.</label><br />
+				<label for="jp2ToValidate">Select JP2 file</label><br />
                 <input type="file" name="jp2ToValidate" id="jp2ToValidate" onchange="resetUrl()">
 			</div>
 			<div class="input-button">
-				<label for="jp2ToValidateFromUrl">OR copy and paste the url of a JP2 file for Jpylyzer validation.</label><br />
+				<label for="jp2ToValidateFromUrl">OR paste url</label><br />
                 <input type="url" name="jp2ToValidateFromUrl" id="jp2ToValidateFromUrl" onclick="resetForm()">
 			</div>
 
 			<div class="buttonHolder">
-				<input type="button" class="sign-up-button" onclick="ajax_request()" value="Validate JP2K File">
+				<input type="button" class="sign-up-button" onclick="ajax_request()" value="Validate">
 			</div>
 
 			<hr>
@@ -99,14 +100,10 @@
 	<div id="links" class="sign-up">
 		<h1 class="sign-up-title">Related Links</h1>
 		<ul class="list">
-			<li><a href="https://github.com/openplanets/jpylyzer">Jpylyzer
-					at Github</a></li>
-			<li><a
-				href="http://www.openplanetsfoundation.org/blogs/2011-12-14-prototype-jp2-validator-and-properties-extractor">Jpylyzer
-					blog post @ OPF</a></li>
-			<li>For any question or further information, please contact
-				Johan van der Knijff at kb.nl</li>
-		</ul>
+			<li><a href="http://openplanets.github.io/jpylyzer/">Jpylyzer homepage</a></li>
+</ul>		
+			<p>For any question or further information, please contact
+				Johan van der Knijff at kb.nl</p>
 	</div>
 
 </body>
