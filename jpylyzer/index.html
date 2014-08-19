@@ -51,8 +51,9 @@
         jpylyzerResultTree.arrangeTree("#content");
         document.getElementById('content').scrollIntoView();
 	}
+
     function resetUrl() {
-		document.getElementById('jp2ToValidateFromUrl').value = "";
+        document.getElementById('jp2ToValidateFromUrl').value = "";
     }
 </script>
 </head>
@@ -108,6 +109,16 @@
 				Johan van der Knijff at kb.nl</li>
 		</ul>
 	</div>
+
+
+<script>
+	jQuery("input#jp2ToValidateFromUrl").keypress(function (e) {
+		if (e.which == 13) {
+			ajax_request();
+			e.preventDefault();
+		}
+	});
+</script>
 
 </body>
 </html>
