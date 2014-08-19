@@ -72,6 +72,7 @@ apt-get install -y git
 # flint
 ###
 FLINT_VERSION=flint-0.6.0
+DPTUTILS_VERSION=dptutils-0.0.1
 
 # clone dptuils & flint from the repository
 echo "[for flint] setting up flint.."
@@ -79,6 +80,7 @@ echo "[for flint] installing dependency: dptutils.."
 cd /home/vagrant
 sudo -u vagrant git clone https://github.com/bl-dpt/dptutils.git
 cd dptutils
+sudo -u vagrant git checkout $DPTUTILS_VERSION
 sudo -u vagrant mvn clean install -DskipTests=true
 
 echo "[for flint] installing jhove.."
