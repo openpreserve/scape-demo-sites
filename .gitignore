@@ -2,4 +2,6 @@
 .settings
 .project
 .vagrant
+# See http://docs.vagrantup.com/v2/other/environmental-variables.html VAGRANT_DOTFILE_PATH
+.vagrant-ultra
 scape-demos.sublime*
