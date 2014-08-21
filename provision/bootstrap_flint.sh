@@ -3,6 +3,7 @@
 # flint
 ###
 FLINT_VERSION=flint-0.6.0
+DPTUTILS_VERSION=dptutils-0.0.1
 
 
 # in case you're behind a (e.g. nmlt) proxy, this is a way to have maven working
@@ -13,7 +14,6 @@ then
     cp /vagrant/proxy_settings.conf /etc/cntlm.conf
     service cntlm restart
 fi
-
 
 
 # Install maven
@@ -39,13 +39,13 @@ apt-get install -y openjdk-7-jdk
 echo "[flint] setting java-7-openjdk-amd64 as default"
 sudo update-alternatives --set java /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java
 
-
 # clone dptuils & flint from the repository
 echo "[for flint] setting up flint.."
 echo "[for flint] installing dependency: dptutils.."
 cd /home/vagrant
 sudo -u vagrant git clone https://github.com/bl-dpt/dptutils.git
 cd dptutils
+sudo -u vagrant git checkout $DPTUTILS_VERSION
 sudo -u vagrant mvn clean install -DskipTests=true
 
 echo "[for flint] installing jhove.."
