@@ -67,69 +67,6 @@
 </script>
 </head>
 <body>
-<<<<<<< HEAD
-
-	<div id="scape" class="sign-up">
-		<table>
-			<tr>
-				<td width="50%"><img src="/images/logo.png" /></td>
-				<td width="50%">
-					<h1 class="sign-up-title">Demonstration of Jpylyzer - a JP2
-						validator and properties extractor</h1>
-				</td>
-			</tr>
-		</table>
-
-		<br /> <br />
-
-		<form name="analyze_form" id="analyze_form" action="check.php"
-			method="post" enctype="multipart/form-data">
-			<div class="input-button">
-				<label for="jp2ToValidate">Select JP2 file for Jpylyzer validation.</label><br />
-                <input type="file" name="jp2ToValidate" id="jp2ToValidate" onchange="resetUrl()">
-			</div>
-			<div class="input-button">
-				<label for="jp2ToValidateFromUrl">OR copy and paste the url of a JP2 file for Jpylyzer validation.</label><br />
-                <input type="url" name="jp2ToValidateFromUrl" id="jp2ToValidateFromUrl" onclick="resetForm()">
-			</div>
-
-			<div class="buttonHolder">
-				<input type="button" class="sign-up-button" onclick="ajax_request()" value="Validate JP2K File">
-			</div>
-
-			<hr>
-
-            <div>
-                <div id="content" class="result-title"></div>
-                <div id="progressBar"></div>
-            </div>
-		</form>
-
-	</div>
-	<div id="links" class="sign-up">
-		<h1 class="sign-up-title">Related Links</h1>
-		<ul class="list">
-			<li><a href="https://github.com/openplanets/jpylyzer">Jpylyzer
-					at Github</a></li>
-			<li><a
-				href="http://www.openplanetsfoundation.org/blogs/2011-12-14-prototype-jp2-validator-and-properties-extractor">Jpylyzer
-					blog post @ OPF</a></li>
-			<li>For any question or further information, please contact
-				Johan van der Knijff at kb.nl</li>
-		</ul>
-	</div>
-
-
-<script>
-	jQuery("input#jp2ToValidateFromUrl").keypress(function (e) {
-		if (e.which == 13) {
-			ajax_request();
-			e.preventDefault();
-		}
-	});
-</script>
-
-=======
 <div id="scape" class="sign-up">
 <table>
 <tr>
@@ -174,6 +111,5 @@ height="128"></a>
 <p>For any question or further information, please contact Johan
 van der Knijff at kb.nl</p>
 </div>
->>>>>>> 603c21bca77adf69abc054825cdcc435e5f3f239
 </body>
 </html>
