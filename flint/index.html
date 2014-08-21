@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="/StyleJS/css/style.css">
 <link rel="stylesheet" href="/flint/css/style.css">
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="/StyleJS/ajax.js"></script>
 
 <script>
@@ -98,6 +99,16 @@
 			<li>For any question or further information, please contact william.palmer@bl.uk or alecs.geuder@bl.uk</li>
 		</ul>
 	</div>
+
+    <script>
+        jQuery("input#flintValidateFromUrl").keypress(function (e) {
+            if (e.which == 13) {
+                ajax_request();
+                e.preventDefault();
+            }
+        });
+    </script>
+
 
 </body>
 </html>

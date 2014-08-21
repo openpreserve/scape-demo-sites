@@ -22,7 +22,7 @@ jpylyzerResultTree.createResultTree = function createResultTree(xml, uniqueness_
             tree += "<ul>";
         }
         if (tagName === "jpylyzer") {
-            tagNameToDisplay = "<span class='check-results'>***RESULTS***</span>";
+            tagNameToDisplay = "<span class='check-results'>Results</span>";
         }
         tree += "<li id='jpylyzer_" + tagName + "'>" + tagNameToDisplay;
         if (elem.attributes.length > 0 && tagName === tagNameToDisplay) {
