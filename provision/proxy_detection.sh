@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # In case you're behind a (e.g. nmlt) proxy, this is a way to have maven working.
 # An example/template is available at /vagrant/proxy_settings.conf.example
@@ -25,5 +25,4 @@ then
     echo "found maven_settings, linking to them"
     ln -s /vagrant/maven_settings.xml /home/vagrant/.m2/settings.xml
 fi
-
 

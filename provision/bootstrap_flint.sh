@@ -33,5 +33,5 @@ sudo -u vagrant git checkout $FLINT_VERSION
 # build the minimal set of modules
 sudo -u vagrant mvn -pl .,flint-toolwrappers,flint-core,flint-pdf,flint-epub,flint-register,flint-cli clean install -DskipTests=true
 # remove the version bit from the flint-cli jar name
+echo "[for flint] creating /home/vagrant/flint/flint.jar.."
 sudo -u vagrant cp flint-cli/target/flint-cli-*-jar-with-dependencies.jar flint.jar
-echo "[for flint] created /home/vagrant/flint/flint.jar"
