@@ -16,6 +16,10 @@ SCRIPT_PATH=$(dirname $(readlink -f $0 ) )
 # combination.  See the README for further detais.
 ##
 
+
+source /vagrant/provision/proxy_detection.sh
+
+
 echo "install scape demo tools ..."
 
 # Add openplanets Bintray deb repo and udate apt repos

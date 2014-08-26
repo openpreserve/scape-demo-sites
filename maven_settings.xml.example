@@ -1,0 +1,13 @@
+<!-- this is an example maven settings file to be used together with cntlm, as defined in
+     proxy_settings.conf, it uses the port number defined in that conf file -->
+<settings>
+  <proxies>
+    <proxy>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>127.0.0.1</host>
+      <port>3310</port>
+    </proxy>
+  </proxies>
+</settings>
+
