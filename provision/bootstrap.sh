@@ -22,6 +22,11 @@ echo "install scape demo tools ..."
 echo "deb http://dl.bintray.com/openplanets/opf-debian /" >> /etc/apt/sources.list
 apt-get update
 
+# For general proxy issues using vagrant, have a look at the vagrant proxy-conf
+# plugin: https://tmatilai.github.io/vagrant-proxyconf/
+# after an update (apt should work with the vagrant proxy plugin alrady), check for NTLM proxies
+source /vagrant/provision/proxy_detection.sh
+
 # Install apache 2, Python module, PHP 5 and java runtime 7 for demo site
 apt-get install -y apache2 php5 libapache2-mod-php5 libapache2-mod-python openjdk-7-jre-headless
 
@@ -53,3 +58,5 @@ source /vagrant/provision/bootstrap_flint.sh
 source /vagrant/provision/bootstrap_matchbox.sh
 
 source /vagrant/provision/bootstrap_xcorrsound.sh
+
+source /vagrant/provision/run_tests.sh

@@ -1,0 +1,22 @@
+# This is an example config file for cntlm (http://cntlm.sourceforge.net/), change and remove the '.example' bit
+# for more information read also http://stackoverflow.com/questions/9181637/how-to-fill-proxy-information-in-cntlm-config-file
+
+Username	<YOUR_USERNAME>
+Domain		<YOUR_DOMAIN>
+
+Auth		NTLM
+Password    <YOUR_PASSWORD>
+
+Proxy       <YOUR_PROXY>
+
+# List addresses you do not want to pass to parent proxies
+# * and ? wildcards can be used
+#
+NoProxy		localhost, 127.0.0.*, 10.*, 192.168.*
+
+# Specify the port cntlm will listen on
+# You can bind cntlm to specific interface by specifying
+# the appropriate IP address also in format <local_ip>:<local_port>
+# Cntlm listens on 127.0.0.1:3128 by default
+#
+Listen		3310
