@@ -6,15 +6,14 @@ enters something in a form, clicks a button to submit this, waits long enough
 to get results back, and checks that there are indeed results.
 """
 
-from sys import exit
-import traceback
 import unittest
 
 from selenium import webdriver
 
-
+# the port is from the *inside* of the VM
 SITE_URL = "http://localhost:80/flint/index.html"
 TEST_FILE = "https://github.com/openplanets/format-corpus/raw/master/govdocs1-error-pdfs/error_set_2/050734.pdf"
+# relevant html DOM IDs
 TEXT_INPUT_ID = "flintValidateFromUrl"
 SUBMIT_BUTTON_ID = "lint-it"
 OUTPUT_ELEMENT_ID = "ul.output"
@@ -41,7 +40,7 @@ class TestFlint(unittest.TestCase):
 
         # as this is an asynchronous call we want to give enough time (in seconds) to
         # the background program to rund and to find what's being returned
-        self.driver.implicitly_wait(30)
+        self.driver.implicitly_wait(120)
 
         # click the 'run' button
         self.driver.find_element_by_id(SUBMIT_BUTTON_ID).click()
@@ -51,8 +50,6 @@ class TestFlint(unittest.TestCase):
 
         self.assertTrue('CheckResult' in output.text,
                         msg="Can't find 'CheckResult' in html")
-        self.assertTrue('well-formed' in output.text)
+        self.assertTrue('well-formed' in output.text,
+                        msg="Can't find 'well-formed' category in check-result")
 
-
-if __name__ == '__main__':
-    unittest.main()
