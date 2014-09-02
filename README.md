@@ -33,23 +33,9 @@ git clone git@github.com:openplanets/scape-demo-sites.git
 cd scape-demo-sites
 ```
 
-If this is the first time you're running the local demonstrator VM you'll need to install a [Vagrant box](http://docs.vagrantup.com/v2/boxes.html), in this case an Ubuntu 12.04 LTS box.  A box is a template image from which VMs are created by Vagrant. Issue the following command:
-```
-vagrant box add precise64 http://files.vagrantup.com/precise64.box
-```
-It may take a few minutes for the box to download. If you're unsure about whether you have the appropriate Vagrant box downloaded, issue the command:
-```
-vagrant box list
-```
-and look for the line:
-```
-precise64 (virtualbox)
-```
-amongst the listed boxes, on a linux box ```vagrant box list | grep precise64``` can be used to thin the output if necessary.
-
 ### Usage
 
-After installing the box, from your local project directory issue the command ```vagrant up```. This will start the headless VM.  If this is the first time you've run the command the it will provision the VM, that is install the appropriate software for the demonstrator. This is achieved by running the [bootstrap.sh](./bootstrap.sh) shell script.  Open a browser and visit http://localhost:2020 which should show the demonstrator home page.
+From your local project directory issue the command ```vagrant up```. This will start the headless VM.  If this is the first time you've run the command the it will provision the VM, that is install the appropriate software for the demonstrator. This is achieved by running the [bootstrap.sh](./bootstrap.sh) shell script.  Open a browser and visit http://localhost:2020 which should show the demonstrator home page.
 
 To stop the demonstrator, from your local project directory issue the command ```vagrant halt```.  This will shut down the VM however the Vagrant box will continue to take up local resources, i.e. disk space, in the ```.vagrant``` sub-directory of the project.  See [Uninstall](#destroying) to see how to free up resources.
 
