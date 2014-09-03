@@ -46,10 +46,12 @@ ln -fs /vagrant /var/www
 # Install tools for downloading (matchbox, flint) sources
 apt-get install -y git
 
-source /vagrant/provision/bootstrap_jpylyzer.sh
+ source /vagrant/provision/bootstrap_jpylyzer.sh
 
-source /vagrant/provision/bootstrap_flint.sh
+ source /vagrant/provision/bootstrap_flint.sh
 
-source /vagrant/provision/bootstrap_matchbox.sh
+ source /vagrant/provision/bootstrap_matchbox.sh
 
-source /vagrant/provision/bootstrap_xcorrsound.sh
+ source /vagrant/provision/bootstrap_xcorrsound.sh
+
+ #source /vagrant/provision/bootstrap_pagelyzer.sh

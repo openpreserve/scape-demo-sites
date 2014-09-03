@@ -58,7 +58,7 @@ All these values can be overriden by command line arguments. These are the defau
                     <!--
 <path>/home/sanojaa/src/pagelyzer/Maven/Pagelyzer/src/main/resources/ext/</path>
 -->
-                    <subdir>/home/scape/public_html/scape-demo-sites/SettingsFiles/ext/</subdir>
+                    <subdir>PATH_TMP</subdir>
                 </comparison>
             </default>
             <internal>
@@ -68,7 +68,7 @@ uncommend <url> to use another server different from localhost. For instance, re
 if it is uncommented the internal ServerLyzer class will be used.
 -->
                 <remote>
-                        <url>http://scape.lip6.fr/js/</url>
+                        <url>PATH_JS</url>
                     </remote>
                 </server>
             </internal>
@@ -76,7 +76,7 @@ if it is uncommented the internal ServerLyzer class will be used.
          <debug>
             <screenshots>
                 <active>true</active>
-                <path>/home/scape/public_html/scape-demo-sites/tmp/</path>
+                <path>PATH_TMP</path>
                 <filepattern>page#{n}.png</filepattern>
             </screenshots>
         </debug>
