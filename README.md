@@ -29,7 +29,7 @@ You'll also need TCP/IP port 2020 free on your local machine.
 
 First clone this repository, if you've not already done so, and move into your local directory copy:
 ```
-git clone git@github.com:openplanets/scape-demo-sites.git
+git clone git@github.com:openpreserve/scape-demo-sites.git
 cd scape-demo-sites
 ```
 
